@@ -7,7 +7,9 @@ uniform sampler2D ourTexture;
 void main()
 {
 vec4 img_color=texture(ourTexture,TexCoord);
-if(img_color.r+img_color.g+img_color.b>0.99*3)
-discard;
+if(img_color.w<0.01)
+{
+	discard;
+}
 pixel_color = img_color;
 }

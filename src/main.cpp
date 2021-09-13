@@ -6,7 +6,7 @@
 #include<iostream>
 #include"shader.h"
 #include "BillBoard.h"
-
+#include "Checkerboard.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -79,7 +79,10 @@ int main(int argc, char** argv)
     BillBoard* board = new BillBoard("../texture1.png");
     board->SetShader("../shader/billboard/shader.vs", "../shader/billboard/shader.fs");
 
-    Shader* model_shader = new Shader("../shader/model/shader.vs", "../shader/model/shader.fs");
+    CheckerBoard* checkerboard = new CheckerBoard();
+    checkerboard->SetShader("../shader/checkerboard/shader.vs", "../shader/checkerboard/shader.fs");
+
+    //Shader* model_shader = new Shader("../shader/model/shader.vs", "../shader/model/shader.fs");
     
     
     //Model* myModel = new Model("../obj/grass/Palm_01.obj");
@@ -94,6 +97,7 @@ int main(int argc, char** argv)
     scene.light = new Light();
     scene.objects.push_back(myModel);
     scene.objects.push_back(board);
+    scene.objects.push_back(checkerboard);
     scene.skybox = new Skybox();
     scene.skybox->SetShader("../shader/skybox/shader.vs", "../shader/skybox/shader.fs");
     
