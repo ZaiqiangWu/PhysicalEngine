@@ -15,6 +15,7 @@
 #include"Texture.h"
 #include "Mesh.h"
 #include "Model.h"
+#include "Text.h"
 #include "Scene.h"
 using namespace std;
 
@@ -47,10 +48,10 @@ int main(int argc, char** argv)
 {
     //initialization
     
-    glfwInit(); //³õÊ¼»¯
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);//Ö÷°æ±¾ºÅ3
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);//´Î°æ±¾ºÅ3
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);//Ê¹ÓÃºËÐÄÄ£Ê½
+    glfwInit(); //ï¿½ï¿½Ê¼ï¿½ï¿½
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);//ï¿½ï¿½ï¿½æ±¾ï¿½ï¿½3
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);//ï¿½Î°æ±¾ï¿½ï¿½3
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);//Ê¹ï¿½Ãºï¿½ï¿½ï¿½Ä£Ê½
     
     
 
@@ -107,9 +108,9 @@ int main(int argc, char** argv)
         scene.Update();
         scene.Render();
         glfwSwapBuffers(window);
-        glfwPollEvents();//¼ì²éÓÐÃ»ÓÐ´¥·¢ÊÂ¼þ(¼üÅÌÊäÈë¡¢Êó±êÒÆ¶¯)£¬ÐÂ´°¿Ú×´Ì¬£¬²¢µ÷ÓÃ¶ÔÓ¦µÄ»Øµ÷º¯Êý
+        glfwPollEvents();//ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¡¢ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½)ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½Ó¦ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
     }
-    glfwTerminate();//ÕýÈ·ÊÍ·Å/É¾³ýÖ®Ç°·ÖÅäµÄËùÓÐ×ÊÔ´
+    glfwTerminate();//ï¿½ï¿½È·ï¿½Í·ï¿½/É¾ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
     return 0;
    
 }
