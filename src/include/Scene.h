@@ -30,7 +30,7 @@ public:
 	{
 		cam->UpdateMove();
 		float t = (float)clock()/1000.0f;
-		t = t * 5;
+		t = t * 0.05;
 		glm::vec3 center = glm::vec3(0, 100, 0);
 		float radius = 100.0f;
 		light->lightPos=center+radius* glm::vec3(sin(t), 1, cos(t));
