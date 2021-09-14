@@ -2,7 +2,7 @@
 
 // Std. Includes
 #include <vector>
-#include "Shader.h"
+#include "shader.h"
 // GL Includes
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -42,14 +42,14 @@ const GLfloat SENSITIVTY = 0.25f;
 const GLfloat ZOOM = 45.0f;
 
 
-GLfloat roate = 0.0;// set rote of roate ying yu bu hao  bu zhuang le ÉèÖÃÐý×ªËÙÂÊ
-GLfloat rote = 0.0;//shezhiÐý×ª½Ç¶È
-GLfloat anglex = 0.0;//X ÖáÐý×ª
-GLfloat angley = 0.0;//Y ÖáÐý×ª
-GLfloat anglez = 0.0;//Z ÖáÐý×ª
+GLfloat roate = 0.0;// set rote of roate ying yu bu hao  bu zhuang le ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½
+GLfloat rote = 0.0;//shezhiï¿½ï¿½×ªï¿½Ç¶ï¿½
+GLfloat anglex = 0.0;//X ï¿½ï¿½ï¿½ï¿½×ª
+GLfloat angley = 0.0;//Y ï¿½ï¿½ï¿½ï¿½×ª
+GLfloat anglez = 0.0;//Z ï¿½ï¿½ï¿½ï¿½×ª
 GLint WinW = 1500;
 GLint WinH = 1000;
-GLfloat oldx;//µ±×ó¼ü°´ÏÂÊ±¼ÇÂ¼Êó±ê×ø±ê  
+GLfloat oldx;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 GLfloat oldy;
 
 
@@ -195,11 +195,11 @@ void curse_poscallback(GLFWwindow* window, double x, double y)
     //std::cout << "(pos:" << x << "," << y << ")" << std::endl;
     GLfloat deltax = oldx - x;
     GLfloat deltay = oldy - y;
-    anglex += 360 * deltax / (GLfloat)WinW;//¸ù¾ÝÆÁÄ»ÉÏÊó±ê»¬¶¯µÄ¾àÀëÀ´ÉèÖÃÐý×ªµÄ½Ç¶È  
+    anglex += 360 * deltax / (GLfloat)WinW;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ê»¬ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½Ä½Ç¶ï¿½  
     angley += 360 * deltay / (GLfloat)WinH;
     anglez += 360 * deltay / (GLfloat)WinH;
-    oldx = WinW / 2;//x;//¼ÇÂ¼´ËÊ±µÄÊó±ê×ø±ê£¬¸üÐÂÊó±ê×ø±ê  
-    oldy = WinH / 2;// y;//ÈôÊÇÃ»ÓÐÕâÁ½¾äÓï¾ä£¬»¬¶¯ÊÇÐý×ª»á±äµÃ²»¿É¿Ø  
+    oldx = WinW / 2;//x;//ï¿½ï¿½Â¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+    oldy = WinH / 2;// y;//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ã²ï¿½ï¿½É¿ï¿½  
     //cout << "x:" << x << endl;
     //cout << "y:" << y << endl;
 
@@ -212,7 +212,7 @@ void curse_poscallback(GLFWwindow* window, double x, double y)
 
 void processInput(GLFWwindow* window)
 {
-    //¼ì²éÓÃ»§ÊÇ·ñ°´ÏÂEsc£¬Èç¹û°´ÏÂÔò¹Ø±Õ³ÌÐò
+    //ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Escï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø±Õ³ï¿½ï¿½ï¿½
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -275,11 +275,11 @@ void motion(int x, int y)
 {
     GLint deltax = oldx - x;
     GLint deltay = oldy - y;
-    anglex += 360 * (GLfloat)deltax / (GLfloat)WinW;//¸ù¾ÝÆÁÄ»ÉÏÊó±ê»¬¶¯µÄ¾àÀëÀ´ÉèÖÃÐý×ªµÄ½Ç¶È  
+    anglex += 360 * (GLfloat)deltax / (GLfloat)WinW;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ê»¬ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½Ä½Ç¶ï¿½  
     angley += 360 * (GLfloat)deltay / (GLfloat)WinH;
     anglez += 360 * (GLfloat)deltay / (GLfloat)WinH;
-    oldx = x;//¼ÇÂ¼´ËÊ±µÄÊó±ê×ø±ê£¬¸üÐÂÊó±ê×ø±ê  
-    oldy = y;//ÈôÊÇÃ»ÓÐÕâÁ½¾äÓï¾ä£¬»¬¶¯ÊÇÐý×ª»á±äµÃ²»¿É¿Ø  
+    oldx = x;//ï¿½ï¿½Â¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+    oldy = y;//ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½Ã²ï¿½ï¿½É¿ï¿½  
     //cout << "x:" << x << endl;
     //cout << "y:" << y << endl;
    

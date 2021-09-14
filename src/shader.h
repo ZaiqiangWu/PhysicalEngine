@@ -2,7 +2,7 @@
 #define SHADER_H
 #define GLEW_STATIC
 #include <gl/glew.h> // include glad to get all the required OpenGL headers
-#include <gl/gl.h>
+#include <GL/gl.h>
 #include <string>
 #include <fstream>
 #include <sstream>

@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 #include <vector>
-#include"Shader.h"
+#include"shader.h"
 #include <SOIL.h>
 
 #include <assimp/Importer.hpp>
@@ -42,15 +42,15 @@ struct Texture {
 
 
 
-//ka£¬kd£¬ks¼´ÏàÓ¦µÄ»·¾³¹â£¬Âþ·´Éä¼°¾µÃæ·´ÉäµÄ²ÎÊý£¬mTextureName±£´æ×Å¸Ã²ÄÖÊµÄÃû³Æ£¬ÓÉmtlÎÄ¼þ¶ÁÈë£¬mTextureId¼´ÎÆÀíÌùÍ¼¡£
+//kaï¿½ï¿½kdï¿½ï¿½ksï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ä»ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ä¼°ï¿½ï¿½ï¿½æ·´ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½mTextureNameï¿½ï¿½ï¿½ï¿½ï¿½Å¸Ã²ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½mtlï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ë£¬mTextureIdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 //https://www.programmersought.com/article/5130383977/
 class Material
 {
 public:
     //float Ns;     //shinness
-    glm::vec3 Ka;  //»·¾³¹â
-    glm::vec3 Kd; //Âþ·´Éä
-    glm::vec3 Ks; //¾µÃæ·´Éä
+    glm::vec3 Ka;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    glm::vec3 Kd; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    glm::vec3 Ks; //ï¿½ï¿½ï¿½æ·´ï¿½ï¿½
     vector<Texture> textures;
     Shader* shader;
     string name;
