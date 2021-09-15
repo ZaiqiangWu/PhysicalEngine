@@ -46,6 +46,7 @@ public:
 	{
 		ComputeFPS();
 	    cam->UpdateMove();
+	    cam->MovementSpeed=5.0f/fps;
 		float t = (float)clock()/1000.0f;
 		t = t * 0.05;
 		glm::vec3 center = glm::vec3(0, 100, 0);

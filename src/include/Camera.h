@@ -120,7 +120,7 @@ public:
     // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
     void UpdateMove()
     {
-        GLfloat velocity = this->MovementSpeed * 0.2;
+        GLfloat velocity = this->MovementSpeed;
         if (isForward)
             this->Position += this->Front * velocity;
         if (isBackward)
