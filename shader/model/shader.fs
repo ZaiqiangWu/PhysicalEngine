@@ -56,4 +56,5 @@ void main()
     float gamma = 1.2;
     result = pow(result, vec3(1.0/gamma));
     color = vec4(result, tex.w);
+
 }

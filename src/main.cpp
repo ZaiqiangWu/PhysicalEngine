@@ -91,6 +91,7 @@ int main(int argc, char** argv)
     //Model* myModel = new Model("../obj/grass/Palm_01.obj");
     //Model* myModel = new Model("../obj/girl/untitled.obj");
     Model* myModel = new Model("../obj/PEACE_LILLY_obj/PEACE_LILLY_5K.obj");
+    //Model* myModel = new Model("../obj/test_cube.obj");
     myModel->Scale(30);
 
     cam = new Camera();

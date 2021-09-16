@@ -100,7 +100,7 @@ public:
 
     void SetProjectionMatrix(int w, int h)
     {
-        projection = glm::perspective(45.0f, (float)w / h, 0.1f, 100.0f);
+        projection = glm::perspective(45.0f, (float)w / h, 0.1f, 500.0f);
         
     }
 
