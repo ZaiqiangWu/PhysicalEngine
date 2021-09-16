@@ -7,6 +7,7 @@
 #include "Skybox.h"
 #include<queue>
 #include<string>
+#include "RigidBody.h"
 using namespace std;
 using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
@@ -15,6 +16,7 @@ class Scene
 public:
 	Camera* cam;
 	vector<Object*> objects;
+	vector<RigidBody*> rigidBodys;
 	Light* light;
 	Skybox* skybox;
 	Text text;
@@ -38,6 +40,11 @@ public:
 			objects[i]->Render(cam,light);
 
 		}
+		for (int i = 0; i < rigidBodys.size(); i++)
+		{
+			rigidBodys[i]->Render(cam,light);
+
+		}
 		//text.RenderText("This is sample text"+to_string(fps), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f),cam);
         text.RenderText("fps:"+to_string(fps).substr(0,4), 25.0f, 570.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f),cam);
 	}
@@ -52,6 +59,11 @@ public:
 		glm::vec3 center = glm::vec3(0, 100, 0);
 		float radius = 100.0f;
 		light->lightPos=center+radius* glm::vec3(sin(t), 1, cos(t));
+		for (int i = 0; i < rigidBodys.size(); i++)
+		{
+			rigidBodys[i]->Step();
+
+		}
 	}
 private:
     float fps;

@@ -34,7 +34,7 @@ void main()
     tex=texture(texture_diffuse1, TexCoords);
     objectColor = vec3(tex);
     if(!TextureValid)
-    objectColor = vec3(0.4,0.4,0.4);
+    objectColor = vec3(1,1,1);
     
     
     

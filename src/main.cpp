@@ -102,6 +102,8 @@ int main(int argc, char** argv)
     scene.objects.push_back(myModel);
     scene.objects.push_back(board);
     scene.objects.push_back(checkerboard);
+    RigidBody* box=new RigidBody();
+    scene.rigidBodys.push_back(box);
     scene.skybox = new Skybox();
     scene.skybox->SetShader("../shader/skybox/shader.vs", "../shader/skybox/shader.fs");
     
