@@ -41,6 +41,8 @@ private:
 	void LoadImage(const char* path)
 	{
 		glGenTextures(1, &id);
+
+        //cout<<"id:"<<id<<endl;
 		glBindTexture(GL_TEXTURE_2D, id);
 		// Set the texture wrapping parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// Set texture wrapping to GL_REPEAT (usually basic wrapping method)
@@ -54,6 +56,8 @@ private:
 		{
 			cout << "Load image failed!" << endl;
 		}
+
+
 		if (channel == 3)
 		{
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
@@ -64,9 +68,10 @@ private:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 			//cout << "hi" << endl;
 		}
+        glGenerateMipmap(GL_TEXTURE_2D);
 		SOIL_free_image_data(image);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		glActiveTexture(GL_TEXTURE0); //ÔÚ°ó¶¨ÎÆÀíÖ®Ç°ÏÈ¼¤»îÎÆÀíµ¥Ôª
-		glBindTexture(GL_TEXTURE_2D, id);
+
+		//glActiveTexture(GL_TEXTURE0); //ï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôª
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 };

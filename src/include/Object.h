@@ -7,7 +7,7 @@
 class Object
 {
 public:
-	virtual void Render(Camera* cam, Light* light) = 0;
+	virtual void Render(Camera* cam, Light* light, GLuint depthMap) = 0;
 	virtual void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader) = 0;
 	
 	virtual ~Object()

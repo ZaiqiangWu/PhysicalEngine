@@ -4,7 +4,44 @@ in vec2 TexCoord;
 in float depth;
 out vec4 pixel_color;
 
-//uniform int GridNum;
+in VS_OUT {
+    vec3 FragPos;
+    vec3 Normal;
+    vec2 TexCoords;
+    vec4 FragPosLightSpace;
+} fs_in;
+
+uniform sampler2D shadowMap;
+
+
+float ShadowCalculation(vec4 fragPosLightSpace)
+{
+    // 执行透视除法
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // 变换到[0,1]的范围
+    projCoords = projCoords * 0.5 + 0.5;
+    // 取得最近点的深度(使用[0,1]范围下的fragPosLight当坐标)
+    float closestDepth = texture(shadowMap, projCoords.xy).r;
+    // 取得当前片元在光源视角下的深度
+    float currentDepth = projCoords.z;
+    // 检查当前片元是否在阴影中
+
+    float shadow = 0.0;
+    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    for(int x = -2; x <= 2; ++x)
+    {
+        for(int y = -2; y <= 2; ++y)
+        {
+            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
+            shadow += currentDepth -0.0001 > pcfDepth ? 1.0 : 0.0;
+        }
+    }
+    shadow /= 25.0;
+    if(projCoords.z > 1.0)
+        shadow = 0.0;
+
+    return shadow;
+}
 
 void GetCoef(in int GridNum,in float t,inout float coef)
 {
@@ -51,5 +88,9 @@ else
     img_color=color_b*ss+color_a*(1-ss);
 }
 
-pixel_color = img_color;
+
+float shadow = ShadowCalculation(fs_in.FragPosLightSpace);
+
+pixel_color = vec4(img_color.xyz*(1.5-shadow),img_color.w);
+//pixel_color = vec4(vec3(texture(shadowMap, TexCoord).r),1);
 }

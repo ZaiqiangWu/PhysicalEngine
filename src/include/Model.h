@@ -31,7 +31,7 @@ public:
     {
         this->loadModel(path);
         //model_matrix = glm::translate(model_matrix, glm::vec3(0.0f, -1.75f, 0.0f)); // Translate it down a bit so it's at the center of the scene
-        Translate(glm::vec3(0.0f, -1.75f, 0.0f));
+        Translate(glm::vec3(0.0f, 1.75f, 0.0f));
         //model_matrix = glm::scale(model_matrix, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
         Scale(glm::vec3(0.2f, 0.2f, 0.2f));
     }
@@ -40,7 +40,7 @@ public:
         
     }
     // Draws the model, and thus all its meshes
-    void Render(Camera* cam, Light* light)
+    void Render(Camera* cam, Light* light, GLuint depthMap)
     {
         //glUniformMatrix4fv(glGetUniformLocation(shader->ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
         for (GLuint i = 0; i < this->meshes.size(); i++)

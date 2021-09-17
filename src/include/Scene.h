@@ -43,12 +43,12 @@ public:
 		skybox->Render(cam);
 		for (int i = 0; i < objects.size(); i++)
 		{
-			objects[i]->Render(cam,light);
+			objects[i]->Render(cam,light,depthMap);
 
 		}
 		for (int i = 0; i < rigidBodys.size(); i++)
 		{
-			rigidBodys[i]->Render(cam,light);
+			rigidBodys[i]->Render(cam,light,depthMap);
 
 		}
 		//text.RenderText("This is sample text"+to_string(fps), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f),cam);
@@ -61,17 +61,17 @@ public:
         glClear(GL_DEPTH_BUFFER_BIT);
         //ConfigureShaderAndMatrices;
         glm::mat4 lightProjection = glm::perspective(45.0f, 1.0f, 0.1f, 500.0f);
-        glm::mat4 lightView = glm::lookAt(light->lightPos, cam->Position, glm::vec3(0.0, 1.0, 0.0));
+        glm::mat4 lightView = glm::lookAt(light->lightPos, cam->Position, glm::cross(cam->Position-light->lightPos,cam->Right));
         glm::mat4 lightSpacematrix=lightProjection*lightView;
         //RenderScene
         for (int i = 0; i < objects.size(); i++)
         {
-            objects[i]->GenDepthBuffer(lightProjection,depthShader);
+            objects[i]->GenDepthBuffer(lightSpacematrix,depthShader);
 
         }
         for (int i = 0; i < rigidBodys.size(); i++)
         {
-            rigidBodys[i]->GenDepthBuffer(lightProjection,depthShader);
+            rigidBodys[i]->GenDepthBuffer(lightSpacematrix,depthShader);
 
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -83,10 +83,10 @@ public:
 	    cam->UpdateMove();
 	    cam->MovementSpeed=5.0f/fps;
 		float t = (float)clock()/1000.0f;
-		t = t * 0.05;
-		glm::vec3 center = glm::vec3(0, 100, 0);
-		float radius = 100.0f;
-		light->lightPos=center+radius* glm::vec3(sin(t), 1, cos(t));
+		t = t * 0.01;
+		glm::vec3 center = glm::vec3(0, 20, 0);
+		float radius = 20.0f;
+		//light->lightPos=center+radius* glm::vec3(sin(t), 1, cos(t));
 		for (int i = 0; i < rigidBodys.size(); i++)
 		{
 			rigidBodys[i]->Step();
@@ -98,25 +98,37 @@ private:
 	queue<float> t_queue;
 	high_resolution_clock::time_point t_begin;
     GLuint depthMapFBO;
+    GLuint depthMap;
     Shader* depthShader;
 
     void InitDepthBuffer()
     {
 
+        glGenTextures(1, &depthMap);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
+
         glGenFramebuffers(1, &depthMapFBO);
-        glBindTexture(GL_TEXTURE_2D, depthMapFBO);
+
+
+
+
         glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,
                      SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+        GLfloat borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMapFBO, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
         glDrawBuffer(GL_NONE);
         glReadBuffer(GL_NONE);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
 	void ComputeFPS()

@@ -15,18 +15,18 @@ public:
     CheckerBoard()
     {
         Scale(150);
-        Rotate(3.1415926/2, glm::vec3(1.0f, 0.0f, 0.0f));
-        Translate(glm::vec3(0,0,0.05));
+        //Rotate(3.1415926/2, glm::vec3(1.0f, 0.0f, 0.0f));
+        //Translate(glm::vec3(0,,0));
         myShader = NULL;
         
         height = 1.0f;
         width = 1.0f;
         GLfloat vertices[] = {
             // Positions         // Colors
-             0.5f * width, 0.5f * height, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 0.0f, // Bottom Right
-            0.5f * width, -0.5f * height, 0.0f,  1.0f, 1.0f, 0.0f,   1.0f, 1.0f, // Bottom Left
-             -0.5f * width,  -0.5f * height, 0.0f,  0.0f, 1.0f, 1.0f,   0.0f, 1.0f,// Top 
-             -0.5f * width,  0.5f * height, 0.0f,  0.0f, 0.0f, 0.5f,   0.0f, 0.0f
+             0.5f * width,  0.0f, 0.5f * height, 1.0f, 0.0f, 0.0f,  1.0f, 0.0f, // Bottom Right
+            0.5f * width,  0.0f, -0.5f * height, 1.0f, 1.0f, 0.0f,   1.0f, 1.0f, // Bottom Left
+             -0.5f * width,   0.0f, -0.5f * height, 0.0f, 1.0f, 1.0f,   0.0f, 1.0f,// Top
+             -0.5f * width,   0.0f, 0.5f * height, 0.0f, 0.0f, 0.5f,   0.0f, 0.0f
         };
         GLuint indices[] = { // ע��������0��ʼ! 
             0, 1, 3, // ��һ��������
@@ -71,21 +71,31 @@ public:
         }
 
     }
-    void Render(Camera* cam, Light* light)
+    void Render(Camera* cam, Light* light, GLuint depthMap)
     {
         //glBindTexture(GL_TEXTURE_2D, tex.id);
         glUseProgram(myShader->ID);
 
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
+
+
+        GLint modelLoc = glGetUniformLocation(myShader->ID, "model");
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
+        cam->SendToGPU(myShader);
+        glm::mat4 lightProjection = glm::perspective(45.0f, 1.0f, 0.1f, 500.0f);
+        glm::mat4 lightView = glm::lookAt(light->lightPos, cam->Position, glm::cross(cam->Position-light->lightPos,cam->Right));
+        glm::mat4 lightSpacematrix=lightProjection*lightView;
+        myShader->setM4("lightSpaceMatrix",lightSpacematrix);
+
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         //glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        GLint modelLoc = glGetUniformLocation(myShader->ID, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
-        cam->SendToGPU(myShader);
+
     }
     void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
     {

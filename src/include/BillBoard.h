@@ -15,8 +15,8 @@ public:
     GLfloat height, width;
     BillBoard(const char* path)
     {
-        Rotate(0.0f, glm::vec3(1.0f, 0.0f, 0.0f));
-        myShader = NULL;
+        Translate(glm::vec3(0,1,0));
+        SetShader("../shader/billboard/shader.vs", "../shader/billboard/shader.fs");
         tex=Texture2D(path);
         height = (float)(tex.height) / (float)(tex.width);
         width = 1.0f;
@@ -70,10 +70,13 @@ public:
         }
        
     }
-    void Render(Camera* cam,Light* light)
+    void Render(Camera* cam, Light* light, GLuint depthMap)
     {
-        glBindTexture(GL_TEXTURE_2D, tex.id);
+
+
         glUseProgram(myShader->ID);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex.id);
        
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -82,8 +85,9 @@ public:
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        GLint modelLoc = glGetUniformLocation(myShader->ID, "model");
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
+        //GLint modelLoc = glGetUniformLocation(myShader->ID, "model");
+        //glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
+        myShader->setM4("model",GetModelMatrix());
         cam->SendToGPU(myShader);
     }
 

@@ -22,7 +22,9 @@ public:
     RigidBody()
     {
         renderModel=new Model("../obj/cube/cube.obj");
-        renderModel->Translate(glm::vec3(4,0.99,0));
+
+        renderModel->Translate(glm::vec3(18,6,0));
+        renderModel->Scale(5);
     }
     ~RigidBody()
     {
@@ -32,9 +34,9 @@ public:
     {
         renderModel->Translate(glm::vec3(0,0,0));
     }
-    void Render(Camera* cam, Light* light)
+    void Render(Camera* cam, Light* light, GLuint depthMap)
     {
-        renderModel->Render(cam,light);
+        renderModel->Render(cam,light,depthMap);
     }
     void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
     {

@@ -76,11 +76,12 @@ int main(int argc, char** argv)
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);wireframe mode
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);go back
     // test glew
     
     
     BillBoard* board = new BillBoard("../texture1.png");
-    board->SetShader("../shader/billboard/shader.vs", "../shader/billboard/shader.fs");
+
 
     CheckerBoard* checkerboard = new CheckerBoard();
     checkerboard->SetShader("../shader/checkerboard/shader.vs", "../shader/checkerboard/shader.fs");

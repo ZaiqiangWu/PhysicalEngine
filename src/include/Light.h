@@ -11,7 +11,7 @@ public:
 	Light()
 	{
 		lightColor = glm::vec3(0.5, 0.5, 0.5);
-		lightPos = glm::vec3(100,100,100);
+		lightPos = glm::vec3(20,20,20);
 	}
 
 };
