@@ -166,6 +166,17 @@ public:
         //GLboolean 
     }
 
+    void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader,glm::mat4 model)
+    {
+        shader->use();
+        shader->setM4("model",model);
+        shader->setM4("lightSpaceMatrix",lightSpaceMatrix);
+        // Draw mesh
+        glBindVertexArray(this->VAO);
+        glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+    }
+
 private:
     /*  Render data  */
     GLuint VAO, VBO, EBO;

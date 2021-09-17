@@ -50,6 +50,14 @@ public:
         }
         
     }
+    void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
+    {
+        for (GLuint i = 0; i < this->meshes.size(); i++)
+        {
+
+            this->meshes[i].GenDepthBuffer(lightSpaceMatrix,shader,GetModelMatrix());
+        }
+    }
 
 
 private:

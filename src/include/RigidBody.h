@@ -36,6 +36,10 @@ public:
     {
         renderModel->Render(cam,light);
     }
+    void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
+    {
+        renderModel->GenDepthBuffer(lightSpaceMatrix,shader);
+    }
 private:
     bool isStatic;
     Model* renderModel;

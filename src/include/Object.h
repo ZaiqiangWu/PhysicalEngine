@@ -3,10 +3,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include"Camera.h"
 #include"Light.h"
+#include "shader.h"
 class Object
 {
 public:
 	virtual void Render(Camera* cam, Light* light) = 0;
+	virtual void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader) = 0;
 	
 	virtual ~Object()
 	{

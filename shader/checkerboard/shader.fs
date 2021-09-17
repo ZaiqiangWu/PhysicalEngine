@@ -32,7 +32,7 @@ void main()
 int GridNum=50;
 vec4 img_color=vec4(1,1,1,1);
 vec4 color_a=vec4(1,1,1,1);
-vec4 color_b=vec4(0.2,0.2,0.2,1);
+vec4 color_b=vec4(0.4,0.4,0.4,1);
 float coef_a;
 float coef_b;
 

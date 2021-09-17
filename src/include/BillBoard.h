@@ -27,9 +27,9 @@ public:
              -0.5f * width,  -0.5f * height, -10.0f,  0.0f, 1.0f, 1.0f,   0.0f, 1.0f,// Top 
              -0.5f * width,  0.5f * height, -10.0f,  0.0f, 0.0f, 0.5f,   0.0f, 0.0f
         };
-        GLuint indices[] = { // ×¢ÒâË÷Òý´Ó0¿ªÊ¼! 
-            0, 1, 3, // µÚÒ»¸öÈý½ÇÐÎ
-            1, 2, 3  // µÚ¶þ¸öÈý½ÇÐÎ
+        GLuint indices[] = { // ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¼! 
+            0, 1, 3, // ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            1, 2, 3  // ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         };
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
@@ -86,6 +86,20 @@ public:
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(GetModelMatrix()));
         cam->SendToGPU(myShader);
     }
+
+    void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
+    {
+        shader->use();
+        shader->setM4("model",GetModelMatrix());
+        shader->setM4("lightSpaceMatrix",lightSpaceMatrix);
+        glBindVertexArray(VAO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
+        glBindVertexArray(0);
+
+    }
+
     void SetShader(const GLchar* vertexPath, const GLchar* fragmentPath)
     {
         myShader = new Shader(vertexPath, fragmentPath);
