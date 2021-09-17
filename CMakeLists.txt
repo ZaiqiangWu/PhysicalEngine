@@ -24,7 +24,7 @@ add_subdirectory(external/assimp/code)
 
 add_executable(main ${source_code} )
 if(WIN32)
-target_link_libraries(main  opengl32.lib glew32s.lib SOILLIB  glfw3.lib assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES})
+target_link_libraries(main  opengl32.lib glew32s.lib SOILLIB  glfw3.lib assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype.lib)
 elseif(UNIX)
 target_link_libraries(main  GL GLEW SOILLIB  glfw assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype)
 endif()
