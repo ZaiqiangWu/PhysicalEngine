@@ -91,6 +91,6 @@ else
 
 float shadow = ShadowCalculation(fs_in.FragPosLightSpace);
 
-pixel_color = vec4(img_color.xyz*(1.5-shadow),img_color.w);
+pixel_color = vec4(img_color.xyz*(min(1.5-shadow,1)),img_color.w);
 //pixel_color = vec4(vec3(texture(shadowMap, TexCoord).r),1);
 }

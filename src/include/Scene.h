@@ -11,7 +11,7 @@
 using namespace std;
 using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
-const GLuint SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+const GLuint SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
 class Scene
 {
 public:
@@ -86,7 +86,7 @@ public:
 		t = t * 0.01;
 		glm::vec3 center = glm::vec3(0, 20, 0);
 		float radius = 20.0f;
-		//light->lightPos=center+radius* glm::vec3(sin(t), 1, cos(t));
+		light->lightPos=center+radius* glm::vec3(sin(t), 0, cos(t));
 		for (int i = 0; i < rigidBodys.size(); i++)
 		{
 			rigidBodys[i]->Step();

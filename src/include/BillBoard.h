@@ -17,6 +17,7 @@ public:
     {
         Translate(glm::vec3(0,1,0));
         SetShader("../shader/billboard/shader.vs", "../shader/billboard/shader.fs");
+        shadowShader=new Shader("../shader/billboard/shadow.vs", "../shader/billboard/shadow.fs");
         tex=Texture2D(path);
         height = (float)(tex.height) / (float)(tex.width);
         width = 1.0f;
@@ -93,14 +94,17 @@ public:
 
     void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
     {
-        shader->use();
-        shader->setM4("model",GetModelMatrix());
-        shader->setM4("lightSpaceMatrix",lightSpaceMatrix);
+        shadowShader->use();
+        shadowShader->setM4("model",GetModelMatrix());
+        shadowShader->setM4("lightSpaceMatrix",lightSpaceMatrix);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex.id);
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         //glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
 
     }
 
@@ -110,6 +114,7 @@ public:
     }
 private:
     Shader* myShader;
+    Shader* shadowShader;
     GLuint VBO, VAO;
     GLuint EBO;
 };
