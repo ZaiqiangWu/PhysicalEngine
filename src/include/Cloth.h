@@ -76,6 +76,7 @@ void Draw(
       ::glEnd();
     }
      */
+    glUseProgram(0);
     ::glEnable(GL_LIGHTING);
     dfm2::opengl::myGlColorDiffuse( dfm2::CColor::Gray(0.8) );
     ::glColor3d(1,0,0);
@@ -83,14 +84,14 @@ void Draw(
     //                                        aTri_Contact.data(), aTri_Contact.size()/3);
     ::glEnable(GL_LIGHTING);
     delfem2::opengl::DrawMeshTri3D_FaceNorm(aXYZ_Contact.data(),
-                                            aTri_Contact.data(), aTri_Contact.size()/3);
+                                            aTri_Contact.data(), aTri_Contact.size()/3);//body
     ::glDisable(GL_LIGHTING);
     ::glColor3d(0,0,0);
     //    delfem2::opengl::DrawMeshDynTri3D_Edge(aXYZ, aETri);
-    delfem2::opengl::DrawMeshDynTri3D_Edge(aXYZ, aETri);
+    delfem2::opengl::DrawMeshDynTri3D_Edge(aXYZ, aETri);//edge of cloth
     ::glEnable(GL_LIGHTING);
     dfm2::opengl::myGlColorDiffuse( dfm2::CColor::Red() );
-    delfem2::opengl::DrawMeshDynTri_FaceNorm(aETri, aXYZ.data());
+    delfem2::opengl::DrawMeshDynTri_FaceNorm(aETri, aXYZ.data());//cloth
 }
 
 class Cloth:public Object
@@ -176,6 +177,36 @@ private:
     std::vector<dfm2::CRigidTrans_2DTo3D> aRT23;
 
     dfm2::CKineticDamper damper;
+
+
+    GLuint BodyVAO;
+    GLuint BodyVBO;
+    GLuint BodyEBO;
+
+    void InitBodyMesh()
+    {
+        glGenVertexArrays(1,&BodyVAO);
+        glGenBuffers(1,&BodyVBO);
+        glGenBuffers(1,&BodyEBO);
+        glBindVertexArray(BodyVAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER,BodyVBO);
+
+        glBufferData(GL_ARRAY_BUFFER, projector.aXYZ_Body.size()*sizeof(double), projector.aXYZ_Body.data(), GL_STATIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BodyEBO);
+        projector.aTri_Body.data();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, projector.aTri_Body.size()*sizeof(unsigned int), projector.aTri_Body.data();, GL_STATIC_DRAW);
+
+        // Position attribute
+        glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(GLdouble), (GLvoid*)0);
+        glEnableVertexAttribArray(0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
+
+        glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs), remember: do NOT unbind the EBO, keep it bound to this VAO
+
+    }
 
 };
 
