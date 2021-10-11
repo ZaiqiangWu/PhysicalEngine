@@ -40,7 +40,7 @@ public:
         glViewport(0, 0, WinW, WinH);
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//skybox->Render(cam);
+		skybox->Render(cam);
 		for (int i = 0; i < objects.size(); i++)
 		{
 			objects[i]->Render(cam,light,depthMap);
