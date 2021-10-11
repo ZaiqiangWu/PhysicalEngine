@@ -28,9 +28,9 @@ public:
              -0.5f * width,   0.0f, -0.5f * height, 0.0f, 1.0f, 1.0f,   0.0f, 1.0f,// Top
              -0.5f * width,   0.0f, 0.5f * height, 0.0f, 0.0f, 0.5f,   0.0f, 0.0f
         };
-        GLuint indices[] = { // ע��������0��ʼ! 
-            0, 1, 3, // ��һ��������
-            1, 2, 3  // �ڶ���������
+        GLuint indices[] = {
+            0, 1, 3,
+            1, 2, 3
         };
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);

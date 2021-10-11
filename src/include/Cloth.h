@@ -97,8 +97,10 @@ void Draw(
 class Cloth:public Object
 {
 public:
-    Cloth()
+    Cloth():shader("../shader/basic/shader.vs","../shader/basic/shader.gs", "../shader/basic/shader.fs")
     {
+        Scale(2);
+        Translate(glm::vec3(0,2,2));
         dfm2::cnpy::LoadSmpl_Bone(
                 projector.aXYZ_Body,
                 aSkinningWeight,
@@ -131,6 +133,8 @@ public:
                 aETri,aVec2,aXYZ,aLine,mesher,
                 aRT23,cad,aIESeam,mesher_edge_length);
 
+        InitBodyMesh();
+
     }
     void Render(Camera* cam, Light* light, GLuint depthMap)
     {
@@ -146,10 +150,11 @@ public:
         // ------------
         //viewer.DrawBegin_oldGL();
         //    dfm2::opengl::Draw_CCad2D(cad);
-        ::glEnable(GL_NORMALIZE);
-        Draw(aETri, aXYZ,
-             projector.aXYZ_Body,
-             projector.aTri_Body);
+
+        //::glEnable(GL_NORMALIZE);
+
+        //Draw(aETri, aXYZ,projector.aXYZ_Body,projector.aTri_Body);
+        RenderBody(cam,light);
 
     }
     void Step()
@@ -183,6 +188,8 @@ private:
     GLuint BodyVBO;
     GLuint BodyEBO;
 
+    Shader shader;
+
     void InitBodyMesh()
     {
         glGenVertexArrays(1,&BodyVAO);
@@ -196,7 +203,7 @@ private:
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BodyEBO);
         projector.aTri_Body.data();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, projector.aTri_Body.size()*sizeof(unsigned int), projector.aTri_Body.data();, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, projector.aTri_Body.size()*sizeof(unsigned int), projector.aTri_Body.data(), GL_STATIC_DRAW);
 
         // Position attribute
         glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(GLdouble), (GLvoid*)0);
@@ -206,6 +213,21 @@ private:
 
         glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs), remember: do NOT unbind the EBO, keep it bound to this VAO
 
+    }
+
+    void RenderBody(Camera* cam, Light* light)
+    {
+        shader.use();
+        glBindVertexArray(BodyVAO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BodyEBO);
+        shader.setM4("model",GetModelMatrix());
+        cam->SendToGPU(&shader);
+        shader.set3Float("objectColor",0.5,0.5,0.5);
+        shader.set3Float("lightPos",light->lightPos.x,light->lightPos.y,light->lightPos.z);
+
+
+        glDrawElements(GL_TRIANGLES, (GLsizei)projector.aTri_Body.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
     }
 
 };
