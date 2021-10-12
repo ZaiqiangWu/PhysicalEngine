@@ -13,7 +13,7 @@
 #include <assimp/postprocess.h>
 
 #include "Texture.h"
-using namespace std;
+
 // GL Includes
 #define GLEW_STATIC
 #include <GL/glew.h> // Contains all the necessery OpenGL includes
@@ -35,7 +35,7 @@ struct Vertex {
 
 struct Texture {
     GLuint id;
-    string type;
+    std::string type;
     aiString path;
 };
 
@@ -51,9 +51,9 @@ public:
     glm::vec3 Ka;  //������
     glm::vec3 Kd; //������
     glm::vec3 Ks; //���淴��
-    vector<Texture> textures;
+    std::vector<Texture> textures;
     Shader* shader;
-    string name;
+    std::string name;
     Material()
     {
         shader = new Shader("../shader/model/shader.vs", "../shader/model/shader.fs");
@@ -75,14 +75,14 @@ public:
 class Mesh {
 public:
     /*  Mesh Data  */
-    vector<Vertex> vertices;
-    vector<GLuint> indices;
+    std::vector<Vertex> vertices;
+    std::vector<GLuint> indices;
     //vector<Texture> textures;
     Material material;
 
     /*  Functions  */
     // Constructor
-    Mesh(vector<Vertex> vertices, vector<GLuint> indices, Material material)//vector<Texture> textures)
+    Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, Material material)//vector<Texture> textures)
     {
         this->vertices = vertices;
         this->indices = indices;
@@ -106,9 +106,9 @@ public:
         {
             glActiveTexture(GL_TEXTURE0 + i); // Active proper texture unit before binding
             // Retrieve texture number (the N in diffuse_textureN)
-            stringstream ss;
-            string number;
-            string name = this->material.textures[i].type;
+            std::stringstream ss;
+            std::string number;
+            std::string name = this->material.textures[i].type;
             if (name == "texture_diffuse")
             {
                 ss << diffuseNr++; // Transfer GLuint to stream

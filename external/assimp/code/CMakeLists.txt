@@ -43,6 +43,7 @@
 #    source groups and library command)
 #
 cmake_minimum_required( VERSION 2.6 )
+set(CMAKE_CXX_STANDARD 14)
 SET( HEADER_PATH ../include/assimp )
 
 SET ( ASSIMP_BUILD_NONFREE_C4D_IMPORTER OFF CACHE BOOL

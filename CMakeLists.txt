@@ -5,7 +5,7 @@ find_package(ZLIB REQUIRED)
 find_package( OpenGL REQUIRED )
 include_directories(${ZLIB_INCLUDE_DIRS})
 include_directories(${OpenGL_INCLUDE_DIRS})
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 add_definitions(-DUNICODE -D_UNICODE)
 
 include_directories(src/include)

@@ -8,7 +8,7 @@
 #include<queue>
 #include<string>
 #include "RigidBody.h"
-using namespace std;
+
 using std::chrono::high_resolution_clock;
 using std::chrono::milliseconds;
 const GLuint SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
-using namespace std;
+
 // GL Includes
 #define GLEW_STATIC
 #include <GL/glew.h> // Contains all the necessery OpenGL includes
@@ -19,7 +19,7 @@ using namespace std;
 #include "Mesh.h"
 #include "Light.h"
 
-GLint TextureFromFile(const char* path, string directory);
+GLint TextureFromFile(const char* path, std::string directory);
 
 
 class Model: public Object
@@ -64,14 +64,14 @@ private:
     /*  Model Data  */
     
     
-    vector<Mesh> meshes;
-    string directory;
-    vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+    std::vector<Mesh> meshes;
+    std::string directory;
+    std::vector<Texture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
     //vector<Material> materials;
 
     /*  Functions   */
     // Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    void loadModel(string path)
+    void loadModel(std::string path)
     {
         
         // Read file via ASSIMP
@@ -80,7 +80,7 @@ private:
         // Check for errors
         if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
-            cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
+            std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
             return;
         }
         // Retrieve the directory path of the filepath
@@ -112,9 +112,9 @@ private:
     Mesh processMesh(aiMesh* mesh, const aiScene* scene)
     {
         // Data to fill
-        vector<Vertex> vertices;
-        vector<GLuint> indices;
-        vector<Texture> textures;
+        std::vector<Vertex> vertices;
+        std::vector<GLuint> indices;
+        std::vector<Texture> textures;
 
         // Walk through each of the mesh's vertices
         for (GLuint i = 0; i < mesh->mNumVertices; i++)
@@ -181,10 +181,10 @@ private:
             // Normal: texture_normalN
 
             // 1. Diffuse maps
-            vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+            std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
             textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
             // 2. Specular maps
-            vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+            std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
             // 3. normal maps
             std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
@@ -201,9 +201,9 @@ private:
 
     // Checks all material textures of a given type and loads the textures if they're not loaded yet.
     // The required info is returned as a Texture struct.
-    vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
+    std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
     {
-        vector<Texture> textures;
+        std::vector<Texture> textures;
         for (GLuint i = 0; i < mat->GetTextureCount(type); i++)
         {
             //cout << "hi" << endl;
@@ -239,10 +239,10 @@ private:
 
 
 
-GLint TextureFromFile(const char* path, string directory)
+GLint TextureFromFile(const char* path, std::string directory)
 {
     //Generate texture ID and load texture data 
-    string filename = string(path);
+    std::string filename = std::string(path);
     filename = directory + '/' + filename;
     GLuint textureID;
     glGenTextures(1, &textureID);
@@ -250,7 +250,7 @@ GLint TextureFromFile(const char* path, string directory)
     unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, &channel, SOIL_LOAD_AUTO);
     if (!image)
     {
-        cout << "load texture failed" << endl;
+        std::cout << "load texture failed" << std::endl;
     }
     // Assign texture to ID
     glBindTexture(GL_TEXTURE_2D, textureID);

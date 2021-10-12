@@ -19,10 +19,8 @@
 #include "Cloth.h"
 #include "Scene.h"
 
-using namespace std;
 
 class Object;
-using namespace std;
 
 
 extern GLint WinW;
@@ -81,7 +79,7 @@ int main(int argc, char** argv)
     // test glew
     
     
-    BillBoard* board = new BillBoard("../texture1.png");
+    //BillBoard* board = new BillBoard("../texture1.png");
 
 
     CheckerBoard* checkerboard = new CheckerBoard();
@@ -96,7 +94,7 @@ int main(int argc, char** argv)
     //Model* myModel = new Model("../obj/test_cube.obj");
     myModel->Scale(30);
 
-    Cloth* cloth=new Cloth();
+    //Cloth* cloth=new Cloth();
 
     cam = new Camera();
     cam->SetProjectionMatrix(WinW,WinH);
@@ -104,9 +102,9 @@ int main(int argc, char** argv)
     scene.cam = cam;
     scene.light = new Light();
     scene.objects.push_back(myModel);
-    scene.objects.push_back(board);
+    //scene.objects.push_back(board);
     scene.objects.push_back(checkerboard);
-    scene.objects.push_back(cloth);
+    //scene.objects.push_back(cloth);
     RigidBody* box=new RigidBody();
     scene.rigidBodys.push_back(box);
     scene.skybox = new Skybox();

@@ -8,7 +8,7 @@
 //#define	STB_IMAGE_IMPLEMENTATION
 //#define STB_IMAGE_STATIC
 //#include <stb_image.h>
-using namespace std;
+
 
 class Texture2D
 {
@@ -16,8 +16,8 @@ public:
 	int width, height,channel;
 	//GLuint texture;
 	GLuint id;
-	string type;
-	string path;
+	std::string type;
+	std::string path;
 	Texture2D()
 	{
 		width = 0;
@@ -54,7 +54,7 @@ private:
 		image = SOIL_load_image(path, &width, &height, &channel, SOIL_LOAD_AUTO);
 		if (!image)
 		{
-			cout << "Load image failed!" << endl;
+			std::cout << "Load image failed!" << std::endl;
 		}
 
 
