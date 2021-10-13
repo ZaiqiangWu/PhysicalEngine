@@ -286,6 +286,11 @@ private:
 
 
         glDrawElements(GL_TRIANGLES, (GLsizei)aETri.size()*3, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//wireframe mode
+        shader.set3Float("objectColor",0,0,0);
+        glLineWidth(2);
+        glDrawElements(GL_TRIANGLES, (GLsizei)aETri.size()*3, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//go back
         glBindVertexArray(0);
     }
 
