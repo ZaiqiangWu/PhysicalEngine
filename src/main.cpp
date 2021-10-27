@@ -94,7 +94,7 @@ int main(int argc, char** argv)
     //Model* myModel = new Model("../obj/test_cube.obj");
     myModel->Scale(30);
 
-    Cloth* cloth=new Cloth();
+    //Cloth* cloth=new Cloth();
 
     cam = new Camera();
     cam->SetProjectionMatrix(WinW,WinH);
@@ -104,7 +104,7 @@ int main(int argc, char** argv)
     scene.objects.push_back(myModel);
     //scene.objects.push_back(board);
     scene.objects.push_back(checkerboard);
-    scene.objects.push_back(cloth);
+    //scene.objects.push_back(cloth);
     RigidBody* box=new RigidBody();
     scene.rigidBodys.push_back(box);
     scene.skybox = new Skybox();
