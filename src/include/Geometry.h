@@ -51,7 +51,7 @@ namespace geometry
 	class Triangle
 	{
 	public:
-		Edge* edges[3];
+		GLuint id[3];
 	};
 
 	class Mesh
@@ -73,12 +73,18 @@ namespace geometry
 			}
 			unsigned int num_faces = (unsigned int)(sizeof(idx) / sizeof(GLuint) / 3);
 			Edge temp_e;
+			GLuint temp_id;
 			for (int i = 0; i < num_faces; ++i)
 			{
 				for (int j = 0; j < 3; ++j)
 				{
 					temp_e.id[0] = idx[3 * i +  j%3];
 					temp_e.id[1] = idx[3 * i +  (j+1)%3];
+					if (!temp_e.is_in_vector(edges, temp_id))
+					{
+						edges.push_back(temp_e);
+						temp_id = edges.size();
+					}
 				}
 			}
 
