@@ -18,7 +18,7 @@ void main()
 {
      // Ambient
     //float ambientStrength = 0.2f;
-    float ambient = 0.5;
+    float ambient = 0.2;
 
 
 

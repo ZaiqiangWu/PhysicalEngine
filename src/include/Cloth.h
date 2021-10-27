@@ -134,6 +134,7 @@ public:
                 aRT23,cad,aIESeam,mesher_edge_length);
 
         InitBodyMesh();
+        InitClothMesh();
 
     }
     void Render(Camera* cam, Light* light, GLuint depthMap)
@@ -155,6 +156,7 @@ public:
 
         //Draw(aETri, aXYZ,projector.aXYZ_Body,projector.aTri_Body);
         RenderBody(cam,light);
+        RenderCloth(cam,light);
 
     }
     void Step()
@@ -187,6 +189,9 @@ private:
     GLuint BodyVAO;
     GLuint BodyVBO;
     GLuint BodyEBO;
+    GLuint ClothVAO;
+    GLuint ClothVBO;
+    GLuint ClothEBO;
 
     Shader shader;
 
@@ -214,6 +219,40 @@ private:
         glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs), remember: do NOT unbind the EBO, keep it bound to this VAO
 
     }
+    void InitClothMesh()
+    {
+        glGenVertexArrays(1,&ClothVAO);
+        glGenBuffers(1,&ClothVBO);
+        glGenBuffers(1,&ClothEBO);
+        glBindVertexArray(ClothVAO);
+
+        glBindBuffer(GL_ARRAY_BUFFER,ClothVBO);
+
+        glBufferData(GL_ARRAY_BUFFER, aXYZ.size()*sizeof(double), aXYZ.data(), GL_DYNAMIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ClothEBO);
+
+        unsigned int* index=new unsigned int[aETri.size()*3];
+        for(int i=0;i<aETri.size();i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                index[i*3+j]=aETri[i].v[j];
+            }
+        }
+
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, aETri.size()*3*sizeof(unsigned int), index, GL_STATIC_DRAW);
+
+        // Position attribute
+        glVertexAttribPointer(0, 3, GL_DOUBLE, GL_FALSE, 3 * sizeof(GLdouble), (GLvoid*)0);
+
+        glEnableVertexAttribArray(0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
+
+        glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs), remember: do NOT unbind the EBO, keep it bound to this VAO
+        delete [] index;
+    }
 
     void RenderBody(Camera* cam, Light* light)
     {
@@ -223,10 +262,35 @@ private:
         shader.setM4("model",GetModelMatrix());
         cam->SendToGPU(&shader);
         shader.set3Float("objectColor",0.5,0.5,0.5);
-        shader.set3Float("lightPos",light->lightPos.x,light->lightPos.y,light->lightPos.z);
+        shader.set3Float("lightPos",cam->Position);
 
 
         glDrawElements(GL_TRIANGLES, (GLsizei)projector.aTri_Body.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+    }
+
+    void RenderCloth(Camera* cam, Light* light)
+    {
+        shader.use();
+        glBindVertexArray(ClothVAO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ClothEBO);
+
+
+        glBindBuffer(GL_ARRAY_BUFFER,ClothVBO);
+        glBufferData(GL_ARRAY_BUFFER, aXYZ.size()*sizeof(double), aXYZ.data(), GL_DYNAMIC_DRAW);
+
+        shader.setM4("model",GetModelMatrix());
+        cam->SendToGPU(&shader);
+        shader.set3Float("objectColor",0.9,0.1,0.1);
+        shader.set3Float("lightPos",cam->Position);
+
+
+        glDrawElements(GL_TRIANGLES, (GLsizei)aETri.size()*3, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//wireframe mode
+        shader.set3Float("objectColor",0,0,0);
+        glLineWidth(2);
+        glDrawElements(GL_TRIANGLES, (GLsizei)aETri.size()*3, GL_UNSIGNED_INT, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//go back
         glBindVertexArray(0);
     }
 
