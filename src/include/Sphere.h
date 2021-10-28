@@ -31,3 +31,28 @@ public:
 private:
 	float radius;
 };
+
+/*
+*  octahedron
+static GLfloat vtx[] =
+{
+   0.0f, -1.0f,  0.0f,
+   1.0f,  0.0f,  0.0f,
+   0.0f,  0.0f,  1.0f,
+  -1.0f,  0.0f,  0.0f,
+   0.0f,  0.0f, -1.0f,
+   0.0f,  1.0f,  0.0f
+};
+
+static GLuint idx[] =
+{
+  0,    1,    2,
+  0,    2,    3,
+  0,    3,    4,
+  0,    4,    1,
+  1,    5,    2,
+  2,    5,    3,
+  3,    5,    4,
+  4,    5,    1
+};
+*/

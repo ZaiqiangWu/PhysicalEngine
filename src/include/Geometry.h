@@ -84,6 +84,29 @@ namespace geometry
 	{
 	public:
 		GLuint id[3];
+		GLuint v_id[3];
+		void generate_id_counterclockwise(vector<Vertex>& vtx,vector<Edge>& edges)
+		{
+			Edge& e1 = edges[id[0]];
+			Edge& e2 = edges[id[1]];
+			v_id[0] = e1.id[0];
+			v_id[1] = e1.id[1];
+			if (e2.id[0] == v_id[0] || e2.id[0] == v_id[1])
+			{
+				v_id[2] = e2.id[1];
+			}
+			else
+				v_id[2] = e2.id[0];
+			Vector3 v0 = Vector3(vtx[v_id[0]].x, vtx[v_id[0]].y, vtx[v_id[0]].z);
+			Vector3 v1 = Vector3(vtx[v_id[1]].x, vtx[v_id[1]].y, vtx[v_id[1]].z);
+			Vector3 v2 = Vector3(vtx[v_id[2]].x, vtx[v_id[2]].y, vtx[v_id[2]].z);
+			if ((v1 - v0).cross(v2 - v1).dot(v0+v1+v2) < 0.0f)
+			{
+				GLuint temp_id = v_id[0];
+				v_id[0] = v_id[1];
+				v_id[1] = temp_id;
+			}
+		}
 	};
 
 	class Mesh
@@ -197,32 +220,21 @@ namespace geometry
 		{
 			v_datas.clear();
 			indices.clear();
-
+			for (int i = 0; i < triangles.size(); ++i)
+			{
+				triangles[i].generate_id_counterclockwise(vertices,edges);
+				for (int j = 0; j < 3; ++j)
+				{
+					indices.push_back(triangles[i].v_id[j]);
+				}
+			}
+			for (int i = 0; i < vertices.size(); ++i)
+			{
+				v_datas.push_back(vertices[i].x);
+				v_datas.push_back(vertices[i].y);
+				v_datas.push_back(vertices[i].z);
+			}
 		}
 	};
 }
 
-/*
-*  octahedron
-static GLfloat vtx[] =
-{
-   0.0f, -1.0f,  0.0f,
-   1.0f,  0.0f,  0.0f,
-   0.0f,  0.0f,  1.0f,
-  -1.0f,  0.0f,  0.0f,
-   0.0f,  0.0f, -1.0f,
-   0.0f,  1.0f,  0.0f
-};
-
-static GLuint idx[] =
-{
-  0,    1,    2,
-  0,    2,    3,
-  0,    3,    4,
-  0,    4,    1,
-  1,    5,    2,
-  2,    5,    3,
-  3,    5,    4,
-  4,    5,    1
-};
-*/
