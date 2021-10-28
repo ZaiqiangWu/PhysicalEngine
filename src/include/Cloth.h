@@ -207,7 +207,7 @@ private:
         glBufferData(GL_ARRAY_BUFFER, projector.aXYZ_Body.size()*sizeof(double), projector.aXYZ_Body.data(), GL_STATIC_DRAW);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BodyEBO);
-        projector.aTri_Body.data();
+     
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, projector.aTri_Body.size()*sizeof(unsigned int), projector.aTri_Body.data(), GL_STATIC_DRAW);
 
         // Position attribute

@@ -3,7 +3,9 @@
 layout(triangles) in;
 layout(triangle_strip, max_vertices=3) out;
 
+//in vec3 FragPos;
 out vec3 normal;
+out vec3 FragPos;
 
 void main( void )
 {
@@ -17,6 +19,6 @@ void main( void )
         normal = N;
         EmitVertex( );
     }
-
+    FragPos=FragPos;
     EndPrimitive( );
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include<vector>
+#include<iostream>
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include"vector3.h"
@@ -11,6 +12,14 @@ namespace geometry
 	{
 	public:
 		float x, y, z;
+		void normalize()
+		{
+			Vector3 v = Vector3(x, y, z);
+			v = v.normalize();
+			x = v.ptr()[0];
+			y = v.ptr()[1];
+			z = v.ptr()[2];
+		}
 	};
 
 	class Edge
@@ -73,6 +82,7 @@ namespace geometry
 				temp.x = (vtx[id[0]].x + vtx[id[1]].x) / 2.0f;
 				temp.y = (vtx[id[0]].y + vtx[id[1]].y) / 2.0f;
 				temp.z = (vtx[id[0]].z + vtx[id[1]].z) / 2.0f;
+				temp.normalize();
 				vtx.push_back(temp);
 				split_id = vtx.size()-1;
 				is_splited = true;
@@ -117,9 +127,10 @@ namespace geometry
 		vector<Triangle> triangles;
 		vector<GLfloat> v_datas;
 		vector<GLuint> indices;
-		Mesh(GLfloat vtx[], GLuint idx[])
+		Mesh(vector<GLfloat> vtx, vector<GLuint> idx)
 		{
-			unsigned int num_vertices = (unsigned int)(sizeof(vtx)/sizeof(GLfloat)/3);
+			unsigned int num_vertices = (unsigned int)(vtx.size()/3);
+			
 			Vertex temp;
 			for (int i = 0; i < num_vertices; ++i)
 			{
@@ -128,7 +139,7 @@ namespace geometry
 				temp.z = vtx[3 * i + 2];
 				this->vertices.push_back(temp);
 			}
-			unsigned int num_faces = (unsigned int)(sizeof(idx) / sizeof(GLuint) / 3);
+			unsigned int num_faces = (unsigned int)(idx.size() / 3);
 			Edge temp_e;
 			GLuint temp_id;
 			Triangle temp_tri;
@@ -204,6 +215,7 @@ namespace geometry
 				{
 					temp_tri.id[k] = e_id[k];
 				}
+				new_triangles.push_back(temp_tri);
 			}
 			edges = new_edges;
 			triangles = new_triangles;
