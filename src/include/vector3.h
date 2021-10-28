@@ -5,10 +5,11 @@
 #include <cmath>
 #include<iostream>
 #include<string>
-#include "nlohmann/json.hpp" 
+
+//#include "nlohmann/json.hpp" 
 
 
-using json = nlohmann::json;
+//using json = nlohmann::json;
 
 using namespace std;
 
@@ -64,13 +65,13 @@ public:
 
 	T* ptr() { return _v; }                                // return reference to array (use with caution)
 
-	void assign(json item)
+	/*void assign(json item)
 	{
 		//cout <<"item" <<item << endl;
 		_v[0] = item["z"].get<float>();
 		_v[1] = item["y"].get<float>();
 		_v[2] = item["x"].get<float>();
-	}
+	}*/
 	
 
 	void PrintInfo()
