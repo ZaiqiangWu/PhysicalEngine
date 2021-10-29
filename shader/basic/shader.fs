@@ -1,6 +1,6 @@
 #version 330 core
 
-in vec3 FragPos;
+in vec3 ex_FragPos;
 in vec3 normal;
 
 
@@ -25,7 +25,7 @@ void main()
 
     // Diffuse
     vec3 norm = normalize(normal);
-    vec3 lightDir = normalize(lightPos - FragPos);
+    vec3 lightDir = normalize(lightPos - ex_FragPos);
     float diffuse = max(dot(norm, lightDir)*1.5, 0.0);
 
 

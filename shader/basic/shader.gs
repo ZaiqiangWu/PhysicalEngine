@@ -3,9 +3,9 @@
 layout(triangles) in;
 layout(triangle_strip, max_vertices=3) out;
 
-//in vec3 FragPos;
+in vec3 FragPos [];
 out vec3 normal;
-out vec3 FragPos;
+out vec3 ex_FragPos;
 
 void main( void )
 {
@@ -17,8 +17,9 @@ void main( void )
     {
         gl_Position = gl_in[i].gl_Position;
         normal = N;
+        ex_FragPos=FragPos[i];
         EmitVertex( );
     }
-    FragPos=FragPos;
+    
     EndPrimitive( );
 }
