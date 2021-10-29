@@ -18,7 +18,7 @@ void main()
 {
      // Ambient
     //float ambientStrength = 0.2f;
-    float ambient = 0.2;
+    float ambient = 0.4;
 
 
 
@@ -26,7 +26,7 @@ void main()
     // Diffuse
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(lightPos - ex_FragPos);
-    float diffuse = max(dot(norm, lightDir)*1.5, 0.0);
+    float diffuse = max(dot(norm, lightDir)*1, -0.3);
 
 
 

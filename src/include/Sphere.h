@@ -39,7 +39,7 @@ class Sphere : public Object
 public:
 	Sphere():mesh(vtx,idx), shader("../shader/basic/shader.vs", "../shader/basic/shader.gs", "../shader/basic/shader.fs")
 	{
-		mesh.Subdivision(4);
+		mesh.Subdivision(2);
 		//cout << mesh.v_datas.size() << endl;
 		radius = 1.0f;
 		glGenVertexArrays(1, &VAO);
@@ -86,11 +86,13 @@ public:
 
 
 		glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, 0);
+		/*
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//wireframe mode
 		shader.set3Float("objectColor", 0, 0, 0);
 		glLineWidth(2);
 		glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, 0);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//go back
+		*/
 		glBindVertexArray(0);
 	}
 	void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
