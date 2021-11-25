@@ -107,7 +107,7 @@ public:
                 projector.aTri_Body,
                 aIndBoneParent,
                 aJntRgrs0,
-                std::string("/home/wuzaiqiang/workspace/delfem2/test_inputs")+"/smpl_model_f.npz");
+                std::string("../test_inputs")+"/smpl_model_f.npz");
         dfm2::Points3_WeighttranspPosition(
                 aJntPos0,
                 aJntRgrs0, projector.aXYZ_Body);
@@ -124,7 +124,7 @@ public:
                 mesher_edge_length,
                 aRT23);
 
-        std::string path_svg = std::string("/home/wuzaiqiang/workspace/delfem2/test_inputs")+"/"+name_cad_in_test_input;
+        std::string path_svg = std::string("../test_inputs")+"/"+name_cad_in_test_input;
         std::cout << "open svg: " << path_svg << std::endl;
         dfm2::ReadSVG_Cad2D(
                 cad, path_svg, 0.001*scale_adjust);

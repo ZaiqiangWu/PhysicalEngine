@@ -26,7 +26,7 @@ void main()
     // Diffuse
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(lightPos - ex_FragPos);
-    float diffuse = max(dot(norm, lightDir)*1, -0.3);
+    float diffuse = max(dot(norm, lightDir)*1, 0);
 
 
 

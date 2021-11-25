@@ -97,21 +97,21 @@ int main(int argc, char** argv)
     //Model* myModel = new Model("../obj/test_cube.obj");
     myModel->Scale(30);
 
-    //Cloth* cloth=new Cloth();
-    Sphere sphere;
+    Cloth* cloth=new Cloth();
+    //Sphere sphere;
 
     cam = new Camera();
     cam->SetProjectionMatrix(WinW,WinH);
     Scene scene;
     scene.cam = cam;
     scene.light = new Light();
-    scene.objects.push_back(myModel);
+    //scene.objects.push_back(myModel);
     //scene.objects.push_back(board);
     scene.objects.push_back(checkerboard);
-    //scene.objects.push_back(cloth);
-    scene.objects.push_back(&sphere);
+    scene.objects.push_back(cloth);
+    //scene.objects.push_back(&sphere);
     RigidBody* box=new RigidBody();
-    scene.rigidBodys.push_back(box);
+    //scene.rigidBodys.push_back(box);
     scene.skybox = new Skybox();
     scene.skybox->SetShader("../shader/skybox/shader.vs", "../shader/skybox/shader.fs");
     
