@@ -86,7 +86,7 @@ public:
 		t = t * 0.01;
 		glm::vec3 center = glm::vec3(0, 20, 0);
 		float radius = 20.0f;
-		light->lightPos=center+radius* glm::vec3(sin(t), 0, cos(t));
+		light->lightPos=center+radius* glm::vec3(sin(0), 0, cos(0));
 		for (int i = 0; i < rigidBodys.size(); i++)
 		{
 			rigidBodys[i]->Step();

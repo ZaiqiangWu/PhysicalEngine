@@ -81,7 +81,7 @@ public:
 
 		shader.setM4("model", GetModelMatrix());
 		cam->SendToGPU(&shader);
-		shader.set3Float("objectColor", 0.9, 0.1, 0.1);
+		shader.set3Float("objectColor", 0.9, 0.9, 0.1);
 		shader.set3Float("lightPos", light->lightPos);
 
 

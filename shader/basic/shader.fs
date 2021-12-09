@@ -8,8 +8,6 @@ out vec4 color;
 
 
 uniform vec3 lightPos;
-
-
 uniform vec3 objectColor;
 
 
@@ -26,12 +24,12 @@ void main()
     // Diffuse
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(lightPos - ex_FragPos);
-    float diffuse = max(dot(norm, lightDir)*1, 0);
+    float diffuse = max(dot(norm, lightDir)*0.6, -0.2);
 
 
 
     vec3 result = (ambient + diffuse)* objectColor;
-    float gamma = 1.2;
+    float gamma = 1.1;
     result = pow(result, vec3(1.0/gamma));
     color = vec4(result, 1);
     //color=vec4(1,0,0,1);

@@ -98,7 +98,7 @@ int main(int argc, char** argv)
     myModel->Scale(30);
 
     Cloth* cloth=new Cloth();
-    //Sphere sphere;
+    Sphere sphere;
 
     cam = new Camera();
     cam->SetProjectionMatrix(WinW,WinH);
@@ -109,7 +109,7 @@ int main(int argc, char** argv)
     //scene.objects.push_back(board);
     scene.objects.push_back(checkerboard);
     scene.objects.push_back(cloth);
-    //scene.objects.push_back(&sphere);
+    scene.objects.push_back(&sphere);
     RigidBody* box=new RigidBody();
     //scene.rigidBodys.push_back(box);
     scene.skybox = new Skybox();
