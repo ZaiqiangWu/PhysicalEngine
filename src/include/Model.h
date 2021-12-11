@@ -50,6 +50,16 @@ public:
         }
         
     }
+    void Render(Camera* cam, Light* light, GLuint depthMap, glm::mat4 m)
+    {
+        //glUniformMatrix4fv(glGetUniformLocation(shader->ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        for (GLuint i = 0; i < this->meshes.size(); i++)
+        {
+
+            this->meshes[i].Draw(cam, light, m*GetModelMatrix());
+        }
+
+    }
     void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
     {
         for (GLuint i = 0; i < this->meshes.size(); i++)
@@ -57,6 +67,19 @@ public:
 
             this->meshes[i].GenDepthBuffer(lightSpaceMatrix,shader,GetModelMatrix());
         }
+    }
+    void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader, glm::mat4 m)
+    {
+        for (GLuint i = 0; i < this->meshes.size(); i++)
+        {
+
+            this->meshes[i].GenDepthBuffer(lightSpaceMatrix, shader, m*GetModelMatrix());
+        }
+    }
+
+    std::vector<Mesh> GetMeshes()
+    {
+        return meshes;
     }
 
 

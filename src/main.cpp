@@ -19,6 +19,7 @@
 #include "Cloth.h"
 #include "Sphere.h"
 #include "Scene.h"
+#include "RigidBody.h"
 
 
 class Object;
@@ -111,7 +112,7 @@ int main(int argc, char** argv)
     scene.objects.push_back(cloth);
     scene.objects.push_back(&sphere);
     RigidBody* box=new RigidBody();
-    //scene.rigidBodys.push_back(box);
+    scene.rigidBodys.push_back(box);
     scene.skybox = new Skybox();
     scene.skybox->SetShader("../shader/skybox/shader.vs", "../shader/skybox/shader.fs");
     

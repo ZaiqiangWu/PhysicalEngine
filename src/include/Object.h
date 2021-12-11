@@ -42,6 +42,10 @@ public:
 	{
 		return model_matrix;
 	}
+	void SetModelMatrix(glm::mat4 m)
+	{
+		model_matrix = m;
+	}
 private:
 	glm::mat4 model_matrix;
 };
