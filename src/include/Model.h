@@ -138,6 +138,7 @@ private:
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
         std::vector<Texture> textures;
+        bool has_normal = true;
 
         // Walk through each of the mesh's vertices
         for (GLuint i = 0; i < mesh->mNumVertices; i++)
@@ -150,10 +151,18 @@ private:
             vector.z = mesh->mVertices[i].z;
             vertex.Position = vector;
             // Normals
-            vector.x = mesh->mNormals[i].x;
-            vector.y = mesh->mNormals[i].y;
-            vector.z = mesh->mNormals[i].z;
-            vertex.Normal = vector;
+            if (mesh->mNormals)
+            {
+                vector.x = mesh->mNormals[i].x;
+                vector.y = mesh->mNormals[i].y;
+                vector.z = mesh->mNormals[i].z;
+                vertex.Normal = vector;
+            }
+            else
+            {
+                has_normal = false;
+            }
+            
             // Texture Coordinates
             if (mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
             {
@@ -175,6 +184,31 @@ private:
             // Retrieve all indices of the face and store them in the indices vector
             for (GLuint j = 0; j < face.mNumIndices; j++)
                 indices.push_back(face.mIndices[j]);
+            //Compute normal 
+            if (!has_normal)
+            {
+                for (int i = 0; i < vertices.size(); ++i)
+                {
+                    vertices[i].Normal = glm::vec3(0,0,0);
+
+                }
+                for (int i = 0; i < indices.size() / 3; ++i)
+                {
+                    glm::vec3 x0 = vertices[indices[3*i+0]].Position;
+                    glm::vec3 x1 = vertices[indices[3 * i + 1]].Position;
+                    glm::vec3 x2 = vertices[indices[3 * i + 2]].Position;
+                    glm::vec3 n = glm::cross(x1-x0,x2-x1);
+                    //std::cout << vertices[3 * i + 0].Normal.x << std::endl;
+                    vertices[indices[3 * i + 0]].Normal += n;
+                    vertices[indices[3 * i + 1]].Normal += n;
+                    vertices[indices[3 * i + 2]].Normal += n;
+                }
+                for (int i = 0; i < vertices.size(); ++i)
+                {
+                    vertices[i].Normal = glm::normalize(vertices[i].Normal);
+                    
+                }
+            }
         }
         // Process materials
         Material mat;

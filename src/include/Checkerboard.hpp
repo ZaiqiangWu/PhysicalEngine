@@ -99,14 +99,14 @@ public:
     }
     void GenDepthBuffer(glm::mat4 lightSpaceMatrix, Shader* shader)
     {
-        shader->use();
+        /*shader->use();
         shader->setM4("model",GetModelMatrix());
         shader->setM4("lightSpaceMatrix",lightSpaceMatrix);
         glBindVertexArray(VAO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         //glDrawArrays(GL_TRIANGLES, 0, 3);
-        glBindVertexArray(0);
+        glBindVertexArray(0);*/
 
     }
     void SetShader(const GLchar* vertexPath, const GLchar* fragmentPath)
