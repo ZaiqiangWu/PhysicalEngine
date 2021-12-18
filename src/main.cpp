@@ -16,7 +16,7 @@
 #include "Mesh.h"
 #include "Model.h"
 #include "Text.h"
-#include "Cloth.h"
+//#include "Cloth.h"
 #include "Sphere.h"
 #include "Scene.h"
 #include "RigidBody.h"
