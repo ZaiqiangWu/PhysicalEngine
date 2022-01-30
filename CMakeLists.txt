@@ -7,6 +7,7 @@ include_directories(${ZLIB_INCLUDE_DIRS})
 include_directories(${OpenGL_INCLUDE_DIRS})
 set(CMAKE_CXX_STANDARD 17)
 add_definitions(-DUNICODE -D_UNICODE)
+add_definitions(-DPROJECT_DIR="${CMAKE_SOURCE_DIR}")
 
 include_directories(src/include)
 include_directories(src/)

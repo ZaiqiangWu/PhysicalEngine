@@ -37,7 +37,7 @@ vector<GLuint> idx =
 class Sphere : public Object
 {
 public:
-	Sphere():mesh(vtx,idx), shader("../shader/basic/shader.vs", "../shader/basic/shader.gs", "../shader/basic/shader.fs")
+	Sphere():mesh(vtx,idx), shader(PROJECT_DIR"/shader/basic/shader.vs", PROJECT_DIR"/shader/basic/shader.gs", PROJECT_DIR"/shader/basic/shader.fs")
 	{
 		mesh.Subdivision(2);
 		//cout << mesh.v_datas.size() << endl;

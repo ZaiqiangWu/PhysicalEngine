@@ -26,7 +26,7 @@ public:
 	    fps=0.0f;
 	    t_begin=high_resolution_clock::now();
         InitDepthBuffer();
-        depthShader=new Shader("../shader/shadowmap/shader.vs", "../shader/shadowmap/shader.fs");
+        depthShader=new Shader(PROJECT_DIR"/shader/shadowmap/shader.vs", PROJECT_DIR"/shader/shadowmap/shader.fs");
     }
 	void Render()
 	{

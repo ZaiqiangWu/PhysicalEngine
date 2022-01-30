@@ -49,7 +49,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 int main(int argc, char** argv)
 {
     //initialization
-    
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -87,14 +86,14 @@ int main(int argc, char** argv)
 
 
     CheckerBoard* checkerboard = new CheckerBoard();
-    checkerboard->SetShader("../shader/checkerboard/shader.vs", "../shader/checkerboard/shader.fs");
+    checkerboard->SetShader(PROJECT_DIR"/shader/checkerboard/shader.vs", PROJECT_DIR"/shader/checkerboard/shader.fs");
 
     //Shader* model_shader = new Shader("../shader/model/shader.vs", "../shader/model/shader.fs");
     
     
     //Model* myModel = new Model("../obj/grass/Palm_01.obj");
     //Model* myModel = new Model("../obj/girl/untitled.obj");
-    Model* myModel = new Model("../obj/PEACE_LILLY_obj/PEACE_LILLY_5K.obj");
+    Model* myModel = new Model(PROJECT_DIR"/obj/PEACE_LILLY_obj/PEACE_LILLY_5K.obj");
     //Model* myModel = new Model("../obj/test_cube.obj");
     myModel->Scale(30);
 
@@ -114,7 +113,7 @@ int main(int argc, char** argv)
     RigidBody* box=new RigidBody();
     scene.rigidBodys.push_back(box);
     scene.skybox = new Skybox();
-    scene.skybox->SetShader("../shader/skybox/shader.vs", "../shader/skybox/shader.fs");
+    scene.skybox->SetShader(PROJECT_DIR"/shader/skybox/shader.vs", PROJECT_DIR"/shader/skybox/shader.fs");
     
     while (!glfwWindowShouldClose(window))
     {

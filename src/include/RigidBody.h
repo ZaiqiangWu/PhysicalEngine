@@ -23,7 +23,7 @@ public:
 
     RigidBody()
     {
-        renderModel = new Model("../obj/bunny/bunny.obj");//("../obj/cube/cube.obj");
+        renderModel = new Model(PROJECT_DIR"/obj/bunny/bunny.obj");//("../obj/cube/cube.obj");
         isStatic = false;
         
         renderModel->Translate(glm::vec3(18,6,0));

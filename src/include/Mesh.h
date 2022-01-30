@@ -42,21 +42,21 @@ struct Texture {
 
 
 
-//ka��kd��ks����Ӧ�Ļ����⣬�����估���淴��Ĳ�����mTextureName�����Ÿò��ʵ����ƣ���mtl�ļ����룬mTextureId��������ͼ��
+
 //https://www.programmersought.com/article/5130383977/
 class Material
 {
 public:
     //float Ns;     //shinness
-    glm::vec3 Ka;  //������
-    glm::vec3 Kd; //������
-    glm::vec3 Ks; //���淴��
+    glm::vec3 Ka;  //
+    glm::vec3 Kd; //
+    glm::vec3 Ks; //
     std::vector<Texture> textures;
     Shader* shader;
     std::string name;
     Material()
     {
-        shader = new Shader("../shader/model/shader.vs", "../shader/model/shader.fs");
+        shader = new Shader(PROJECT_DIR"/shader/model/shader.vs", PROJECT_DIR"/shader/model/shader.fs");
         textures.clear();
     }
     ~Material()

@@ -34,7 +34,7 @@ struct Character {
 class Text
 {
 public:
-    Text():shader("../shader/text/shader.vs", "../shader/text/shader.fs")
+    Text():shader(PROJECT_DIR"/shader/text/shader.vs", PROJECT_DIR"/shader/text/shader.fs")
     {
 
         if (FT_Init_FreeType(&ft))
@@ -43,7 +43,7 @@ public:
         }
 
         // find path to font
-        std::string font_name = "../resources/fonts/Arial.ttf";
+        std::string font_name = PROJECT_DIR"/resources/fonts/Arial.ttf";
         if (font_name.empty())
         {
             std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;

@@ -68,12 +68,12 @@ public:
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
         glBindVertexArray(0);
-        faces.push_back("../skybox/right.jpg");
-        faces.push_back("../skybox/left.jpg");
-        faces.push_back("../skybox/top.jpg");
-        faces.push_back("../skybox/bottom.jpg");
-        faces.push_back("../skybox/back.jpg");
-        faces.push_back("../skybox/front.jpg");
+        faces.push_back(PROJECT_DIR"/skybox/right.jpg");
+        faces.push_back(PROJECT_DIR"/skybox/left.jpg");
+        faces.push_back(PROJECT_DIR"/skybox/top.jpg");
+        faces.push_back(PROJECT_DIR"/skybox/bottom.jpg");
+        faces.push_back(PROJECT_DIR"/skybox/back.jpg");
+        faces.push_back(PROJECT_DIR"/skybox/front.jpg");
         cubemapTexture = loadCubemap(faces);
 	}
 
