@@ -16,7 +16,7 @@
 #include "Mesh.h"
 #include "Model.h"
 #include "Text.h"
-//#include "Cloth.h"
+#include "Cloth.h"
 #include "Sphere.h"
 #include "Scene.h"
 #include "RigidBody.h"
@@ -97,7 +97,7 @@ int main(int argc, char** argv)
     //Model* myModel = new Model("../obj/test_cube.obj");
     myModel->Scale(30);
 
-    //Cloth* cloth=new Cloth();
+    Cloth* cloth=new Cloth();
     Sphere sphere;
 
     cam = new Camera();
@@ -108,7 +108,7 @@ int main(int argc, char** argv)
     //scene.objects.push_back(myModel);
     //scene.objects.push_back(board);
     scene.objects.push_back(checkerboard);
-    //scene.objects.push_back(cloth);
+    scene.objects.push_back(cloth);
     scene.objects.push_back(&sphere);
     RigidBody* box=new RigidBody();
     scene.rigidBodys.push_back(box);

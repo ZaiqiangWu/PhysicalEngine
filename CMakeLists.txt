@@ -11,6 +11,7 @@ add_definitions(-DPROJECT_DIR="${CMAKE_SOURCE_DIR}")
 
 include_directories(src/include)
 include_directories(src/)
+include_directories(src/object)
 include_directories(src/SOIL)
 include_directories(external/assimp/include)
 include_directories(external/freetype/include)
