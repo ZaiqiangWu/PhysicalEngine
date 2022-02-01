@@ -20,6 +20,7 @@
 #include "Sphere.h"
 #include "Scene.h"
 #include "RigidBody.h"
+#include "mass_spring.h"
 
 
 class Object;
