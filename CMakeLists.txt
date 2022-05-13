@@ -13,28 +13,32 @@ add_definitions(-DPROJECT_DIR="${CMAKE_SOURCE_DIR}")
 set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/glfwlib) # give hint to cmake to find glfw library
 find_package(glfw3 REQUIRED)
 
+# use glfw
+set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/assimplib) # give hint to cmake to find glfw library
+find_package(assimp REQUIRED)
+
 include_directories(src/include)
 include_directories(src/)
 include_directories(src/object)
 include_directories(src/simulation)
 include_directories(src/SOIL)
-include_directories(external/assimp/include)
+include_directories(${ASSIMP_INCLUDE_DIRS})
 include_directories(external/freetype/include)
-include_directories(external/assimp)
+#include_directories(external/assimp)
 #include_directories(${PROJECT_SOURCE_DIR}/external/delfem2/include)
 include_directories(${PROJECT_SOURCE_DIR}/external)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 set(source_code src/main.cpp src/shader.cpp)
 add_subdirectory(src/SOIL)
-add_subdirectory(external/assimp/code)
+#add_subdirectory(external/assimp/code)
 
 option(USE_HEADERONLY "USE_DFM2_HEADERONLY" ON)
 add_library(cnpy external/cnpy/cnpy.cpp)
 
 add_executable(main ${source_code} )
 if(WIN32)
-target_link_libraries(main  opengl32.lib glew32s.lib SOILLIB  glfw assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype.lib cnpy)
+target_link_libraries(main  opengl32.lib glew32s.lib SOILLIB  glfw ${ASSIMP_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype.lib cnpy)
 elseif(UNIX)
 target_link_libraries(main  GL GLEW SOILLIB  glfw assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype cnpy)
 endif()
