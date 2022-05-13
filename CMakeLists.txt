@@ -9,6 +9,10 @@ set(CMAKE_CXX_STANDARD 17)
 add_definitions(-DUNICODE -D_UNICODE)
 add_definitions(-DPROJECT_DIR="${CMAKE_SOURCE_DIR}")
 
+# use glfw
+set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/glfwlib) # give hint to cmake to find glfw library
+find_package(glfw3 REQUIRED)
+
 include_directories(src/include)
 include_directories(src/)
 include_directories(src/object)
@@ -30,7 +34,7 @@ add_library(cnpy external/cnpy/cnpy.cpp)
 
 add_executable(main ${source_code} )
 if(WIN32)
-target_link_libraries(main  opengl32.lib glew32s.lib SOILLIB  glfw3.lib assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype.lib cnpy)
+target_link_libraries(main  opengl32.lib glew32s.lib SOILLIB  glfw assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype.lib cnpy)
 elseif(UNIX)
 target_link_libraries(main  GL GLEW SOILLIB  glfw assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype cnpy)
 endif()

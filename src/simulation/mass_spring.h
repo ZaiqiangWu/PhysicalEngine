@@ -12,6 +12,7 @@ public:
     indices(idx)
     {
         //Construct the original E
+        UpdateXfromVertices();
         vector<int> _E(indices.size()*2);
 		for (int i=0; i<indices.size(); i+=3) 
 		{
@@ -48,12 +49,17 @@ public:
 		{
 			int v0 = E[e*2+0];
 			int v1 = E[e*2+1];
-			L[e]=(X[v0]-X[v1]).magnitude;
+			L[e]=(X[v0]-X[v1]).norm();
 		}
 
 		V = vector<Vector3>(vertices.size()/3);
 		for (int i=0; i<V.size(); i++)
 			V[i] = Vector3 (0, 0, 0);
+    }
+
+    void Step()
+    {
+        
     }
 private:
     vector<GLfloat> &vertices;
