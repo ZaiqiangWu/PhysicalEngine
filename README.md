@@ -6,7 +6,7 @@ A light-weight game engine
 git submodule update --init external/glfw
 cd external/glfw
 cmake .
-cmake --build , --config Release
+cmake --build . --config Release
 cmake --install . --prefix ../glfwlib
 ```
 
