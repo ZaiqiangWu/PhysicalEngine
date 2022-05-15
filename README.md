@@ -19,6 +19,16 @@ cmake --build . --config Release
 cmake --install . --prefix ../assimplib
 ```
 
+## Build freetype
+```
+git submodule update --init external/freetype
+cd external/freetype
+mkdir build && cd build
+cmake .. 
+cmake --build . --config Release
+cmake --install . --prefix ../../freetypelib
+```
+
 ## build the engine
 ```
 mkdir build && cd build
