@@ -26,8 +26,8 @@ public:
         renderModel = new Model(PROJECT_DIR"/obj/bunny/bunny.obj");//("../obj/cube/cube.obj");
         isStatic = false;
         
-        renderModel->Translate(glm::vec3(18,6,0));
-        renderModel->Scale(30);
+        renderModel->Translate(glm::vec3(18,6,50));
+        renderModel->Scale(0.1);
         renderModel->Rotate(45,glm::vec3(1,0,0));
         //InitializeShapeMatchingData();
         InitializeImpulseData();

@@ -31,14 +31,15 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 set(source_code src/main.cpp src/shader.cpp)
 add_subdirectory(src/SOIL)
-#add_subdirectory(external/assimp/code)
 
-option(USE_HEADERONLY "USE_DFM2_HEADERONLY" ON)
+
+#option(USE_HEADERONLY "USE_DFM2_HEADERONLY" ON)
 add_library(cnpy external/cnpy/cnpy.cpp)
 
 add_executable(main ${source_code} )
 if(WIN32)
-target_link_libraries(main  opengl32.lib glew32s.lib SOILLIB  glfw ${ASSIMP_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype.lib cnpy)
+target_link_libraries(main  OpenGL::GL glew32s.lib SOILLIB  glfw ${ASSIMP_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype.lib cnpy)
 elseif(UNIX)
-target_link_libraries(main  GL GLEW SOILLIB  glfw assimp ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype cnpy)
+target_link_libraries(main  GL GLEW SOILLIB  glfw ${ASSIMP_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} freetype cnpy)
 endif()
+#opengl32.lib glew32s.lib freetype.lib
