@@ -18,7 +18,7 @@ set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/assimplib) # give hin
 find_package(assimp REQUIRED)
 
 # use freetype
-#set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/freetypelib) # give hint to cmake to find glfw library
+set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/freetypelib) # give hint to cmake to find glfw library
 #set(FREETYPE_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/freetypelib)
 find_package(freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
