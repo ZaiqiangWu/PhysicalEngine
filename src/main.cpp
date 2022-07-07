@@ -94,10 +94,10 @@ int main(int argc, char** argv)
     
     //Model* myModel = new Model("../obj/grass/Palm_01.obj");
     //Model* myModel = new Model("../obj/girl/untitled.obj");
-    Model* myModel = new Model(PROJECT_DIR"/obj/PEACE_LILLY_obj/PEACE_LILLY_5K.obj");
+    Model* myModel = new Model(PROJECT_DIR"/obj/walking/jess.obj");
+    myModel->Scale(0.1);
     //Model* myModel = new Model("../obj/test_cube.obj");
-    myModel->Scale(30);
-
+    
     Cloth* cloth=new Cloth();
     Sphere sphere;
 
@@ -106,7 +106,7 @@ int main(int argc, char** argv)
     Scene scene;
     scene.cam = cam;
     scene.light = new Light();
-    //scene.objects.push_back(myModel);
+    scene.objects.push_back(myModel);
     //scene.objects.push_back(board);
     scene.objects.push_back(checkerboard);
     scene.objects.push_back(cloth);
