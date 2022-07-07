@@ -1,5 +1,5 @@
 #define GLEW_STATIC
-#include<gl/glew.h>
+#include<GL/glew.h>
 //#include<gl/freeglut.h>
 #include <GLFW/glfw3.h>
 #include<GLFW/glfw3native.h>
