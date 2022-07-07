@@ -22,7 +22,7 @@ set(CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/external/freetypelib) # give h
 #set(FREETYPE_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/freetypelib)
 find_package(freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/freetypelib/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/external/freetypelib/include/freetype2)
 
 find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
