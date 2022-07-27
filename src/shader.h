@@ -2,7 +2,13 @@
 #define SHADER_H
 #define GLEW_STATIC
 #include <GL/glew.h> // include glad to get all the required OpenGL headers
+#if defined(__APPLE__)
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#else
 #include <GL/gl.h>
+#include <GL/glu.h>
+#endif
 #include <string>
 #include <fstream>
 #include <sstream>

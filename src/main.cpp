@@ -52,10 +52,11 @@ int main(int argc, char** argv)
     //initialization
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);// Core Profile mode
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);// for Mac OS
-    
+#if defined(__APPLE__)
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);// for Mac OS
+#endif
 
     GLFWwindow* window = glfwCreateWindow(WinW, WinH, "LearnOpenGL", NULL, NULL);
     glfwMakeContextCurrent(window);
@@ -90,13 +91,9 @@ int main(int argc, char** argv)
     checkerboard->SetShader(PROJECT_DIR"/shader/checkerboard/shader.vs", PROJECT_DIR"/shader/checkerboard/shader.fs");
 
     //Shader* model_shader = new Shader("../shader/model/shader.vs", "../shader/model/shader.fs");
-    
-    
-    //Model* myModel = new Model("../obj/grass/Palm_01.obj");
-    //Model* myModel = new Model("../obj/girl/untitled.obj");
-   // Model* myModel = new Model(PROJECT_DIR"/obj/walking/jess.obj");
+
    // myModel->Scale(0.1);
-    //Model* myModel = new Model("../obj/test_cube.obj");
+    //Model* myModel = new Model(PROJECT_DIR"/obj/bunny/bunny.obj");
     
     Cloth* cloth=new Cloth();
     Sphere sphere;

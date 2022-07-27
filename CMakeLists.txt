@@ -49,7 +49,11 @@ add_library(cnpy external/cnpy/cnpy.cpp)
 add_executable(main ${source_code} )
 if(WIN32)
 target_link_libraries(main  OpenGL::GL glew32s.lib SOILLIB  glfw ${ASSIMP_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} ${FREETYPE_LIBRARIES} cnpy)
-elseif(UNIX)
+elseif(UNIX AND NOT APPLE)
 target_link_libraries(main  GL GLEW SOILLIB  glfw ${ASSIMP_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} ${FREETYPE_LIBRARIES} cnpy)
+elseif(APPLE)
+    find_package(GLEW 2.0 REQUIRED)
+    target_link_libraries(main  OpenGL::GL GLEW::GLEW SOILLIB  glfw ${ASSIMP_LIBRARIES} ${ZLIB_LIBRARIES} ${OPENDDL_PARSER_LIBRARIES} ${FREETYPE_LIBRARIES} cnpy)
+
 endif()
 #opengl32.lib glew32s.lib freetype.lib

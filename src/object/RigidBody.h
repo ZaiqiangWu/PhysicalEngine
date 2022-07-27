@@ -181,7 +181,6 @@ private:
         A[2][0] = -a[1];
         A[2][1] = a[0];
         A[2][2] = 0;
-        A[3][3] = 1;
         return glm::transpose(A);
     }
     glm::mat3 ComputeR()
@@ -209,6 +208,7 @@ private:
         int num_in_collision = 0;
         glm::vec3 average_velocity = glm::vec3(0, 0, 0);
         glm::vec3 average_r = glm::vec3(0, 0, 0);
+
         for (int i = 0; i < Q.size(); i++)
         {
             if (glm::dot(GetVerticePosition(Q[i]) - P, N) < 0)
@@ -216,12 +216,14 @@ private:
                 if (glm::dot(glm::cross(w, ComputeR() * Q[i]) + v, N) < 0)
                 {
                     num_in_collision++;
+                    ComputeR();
                     average_velocity += Get_Cross_Matrix(w) * ComputeR() * Q[i] + v;
                     average_r += ComputeR() * Q[i];
                 }
 
             }
         }
+
         if (num_in_collision > 0)
         {
             average_velocity = average_velocity / (float)num_in_collision;
@@ -248,9 +250,7 @@ private:
     {
         v *= linear_decay;
         v += dt * glm::vec3(0, -10.1, 0);
-
         Collision_Impulse(glm::vec3(0, 0.01f, 0), glm::vec3(0, 1, 0));
-
         translate += dt * v;
 
         q = glm::quat(0, w * dt*0.5f)+q;
