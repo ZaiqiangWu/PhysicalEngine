@@ -1,16 +1,15 @@
 #define GLEW_STATIC
 #include<GL/glew.h>
-//#include<gl/freeglut.h>
 #include <GLFW/glfw3.h>
 #include<GLFW/glfw3native.h>
 #include<iostream>
 #include"shader.h"
-#include "BillBoard.h"
-#include "Checkerboard.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
+#include "BillBoard.h"
+#include "Checkerboard.hpp"
 #include "SOIL.h"
 #include"Texture.h"
 #include "Mesh.h"

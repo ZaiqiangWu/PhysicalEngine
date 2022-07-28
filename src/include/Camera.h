@@ -20,7 +20,8 @@ enum Camera_Movement {
     LEFT,
     RIGHT
 };
-
+static bool isFreezeLock = false;
+static bool isFreeze = true;
 static bool isForward = false;
 static bool isBackward = false;
 static bool isLeft = false;
@@ -120,6 +121,7 @@ public:
     // Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
     void UpdateMove()
     {
+        if (isFreeze) return;
         GLfloat velocity = this->MovementSpeed;
         if (isForward)
             this->Position += this->Front * velocity;
@@ -140,6 +142,7 @@ public:
     // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
     void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = true)
     {
+        if (isFreeze) return;
         xoffset *= this->MouseSensitivity;
         yoffset *= this->MouseSensitivity;
 
@@ -192,6 +195,7 @@ Camera* cam;
 
 void curse_poscallback(GLFWwindow* window, double x, double y)
 {
+    if (isFreeze) return;
     //std::cout << "(pos:" << x << "," << y << ")" << std::endl;
     GLfloat deltax = oldx - x;
     GLfloat deltay = oldy - y;
@@ -212,9 +216,26 @@ void curse_poscallback(GLFWwindow* window, double x, double y)
 
 void processInput(GLFWwindow* window)
 {
-    //����û��Ƿ���Esc�����������رճ���
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS&&!isFreezeLock)
+    {
+        isFreeze = !isFreeze;
+        isFreezeLock = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_RELEASE)
+    {
+        isFreezeLock = false;
+    }
+
+    if(isFreeze)
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    else
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
         isForward = true;
