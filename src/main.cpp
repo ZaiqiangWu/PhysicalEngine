@@ -38,7 +38,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
+    int framebufferWidth, framebufferHeight;
+    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
+
+    glViewport(0, 0, framebufferWidth, framebufferHeight);
+    //glViewport(0, 0, width, height);
     WinW = width;
     WinH = height;
     cam->SetProjectionMatrix(WinW, WinH);
@@ -53,7 +57,7 @@ int main(int argc, char** argv)
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);// Core Profile mode
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);// Core Profile mode
 #if defined(__APPLE__)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);// for Mac OS
 #endif
@@ -70,7 +74,13 @@ int main(int argc, char** argv)
         printf("GLEW CREATE ERROR");
         return -1;
     }
-    glViewport(0, 0, WinW, WinH);
+    //GLFWwindow * window = Application::getInstance().currentWindow;
+    int frameBufferWidth, frameBufferHeight;
+    glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
+    cout<<"frame: "<<frameBufferHeight<<endl;
+    cout<<"hight: "<<WinH<<endl;
+    glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+    //glViewport(0, 0, WinW, WinH);
     
     //glFrontFace(GL_CCW);
     //glEnable(GL_CULL_FACE);

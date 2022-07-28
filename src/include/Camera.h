@@ -42,14 +42,14 @@ const GLfloat SENSITIVTY = 0.25f;
 const GLfloat ZOOM = 45.0f;
 
 
-GLfloat roate = 0.0;// set rote of roate ying yu bu hao  bu zhuang le ������ת����
-GLfloat rote = 0.0;//shezhi��ת�Ƕ�
-GLfloat anglex = 0.0;//X ����ת
-GLfloat angley = 0.0;//Y ����ת
-GLfloat anglez = 0.0;//Z ����ת
-GLint WinW = 1500;
-GLint WinH = 1000;
-GLfloat oldx;//���������ʱ��¼�������  
+GLfloat roate = 0.0;// set rote of roate
+GLfloat rote = 0.0;//shezhi
+GLfloat anglex = 0.0;//X
+GLfloat angley = 0.0;//Y
+GLfloat anglez = 0.0;//Z
+GLint WinW = 500;
+GLint WinH = 400;
+GLfloat oldx;
 GLfloat oldy;
 
 
@@ -195,11 +195,11 @@ void curse_poscallback(GLFWwindow* window, double x, double y)
     //std::cout << "(pos:" << x << "," << y << ")" << std::endl;
     GLfloat deltax = oldx - x;
     GLfloat deltay = oldy - y;
-    anglex += 360 * deltax / (GLfloat)WinW;//������Ļ����껬���ľ�����������ת�ĽǶ�  
+    anglex += 360 * deltax / (GLfloat)WinW;
     angley += 360 * deltay / (GLfloat)WinH;
     anglez += 360 * deltay / (GLfloat)WinH;
-    oldx = WinW / 2;//x;//��¼��ʱ��������꣬�����������  
-    oldy = WinH / 2;// y;//����û����������䣬��������ת���ò��ɿ�  
+    oldx = WinW / 2;//
+    oldy = WinH / 2;//
     //cout << "x:" << x << endl;
     //cout << "y:" << y << endl;
 
@@ -275,11 +275,11 @@ void motion(int x, int y)
 {
     GLint deltax = oldx - x;
     GLint deltay = oldy - y;
-    anglex += 360 * (GLfloat)deltax / (GLfloat)WinW;//������Ļ����껬���ľ�����������ת�ĽǶ�  
+    anglex += 360 * (GLfloat)deltax / (GLfloat)WinW;
     angley += 360 * (GLfloat)deltay / (GLfloat)WinH;
     anglez += 360 * (GLfloat)deltay / (GLfloat)WinH;
-    oldx = x;//��¼��ʱ��������꣬�����������  
-    oldy = y;//����û����������䣬��������ת���ò��ɿ�  
+    oldx = x;//
+    oldy = y;//
     //cout << "x:" << x << endl;
     //cout << "y:" << y << endl;
    
