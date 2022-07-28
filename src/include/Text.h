@@ -20,6 +20,9 @@
 #include FT_FREETYPE_H
 
 #include "shader.h"
+#include "Camera.h"
+extern GLint framebufferWidth;
+extern GLint framebufferHeight;
 
 
 /// Holds all state information relevant to a character as loaded using FreeType
@@ -124,7 +127,7 @@ public:
 
         // activate corresponding render state
         shader.use();
-        glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr( glm::ortho(0.0f, 800.0f, 0.0f, 600.0f)));
+        glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr( glm::ortho(0.0f, (float)framebufferWidth, 0.0f, (float)framebufferHeight)));
         glUniform3f(glGetUniformLocation(shader.ID, "textColor"), color.x, color.y, color.z);
         glActiveTexture(GL_TEXTURE0);
         glBindVertexArray(VAO);

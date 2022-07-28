@@ -48,10 +48,12 @@ GLfloat rote = 0.0;//shezhi
 GLfloat anglex = 0.0;//X
 GLfloat angley = 0.0;//Y
 GLfloat anglez = 0.0;//Z
-GLint WinW = 500;
-GLint WinH = 400;
+GLint WinW = 800;
+GLint WinH = 800;
 GLfloat oldx;
 GLfloat oldy;
+GLint framebufferWidth=800;
+GLint framebufferHeight=800;
 
 
 // An abstract camera class that processes input and calculates the corresponding Eular Angles, Vectors and Matrices for use in OpenGL
@@ -101,7 +103,7 @@ public:
 
     void SetProjectionMatrix(int w, int h)
     {
-        projection = glm::perspective(45.0f, (float)w / h, 0.1f, 500.0f);
+        projection = glm::perspective(45.0f, (GLfloat)w / (GLfloat)h, 0.1f, 500.0f);
         
     }
 
@@ -202,13 +204,15 @@ void curse_poscallback(GLFWwindow* window, double x, double y)
     anglex += 360 * deltax / (GLfloat)WinW;
     angley += 360 * deltay / (GLfloat)WinH;
     anglez += 360 * deltay / (GLfloat)WinH;
+    cam->ProcessMouseMovement(-deltax, deltay);
     oldx = WinW / 2;//
     oldy = WinH / 2;//
     //cout << "x:" << x << endl;
     //cout << "y:" << y << endl;
 
-    cam->ProcessMouseMovement(-deltax, deltay);
+    
     glfwSetCursorPos(window, WinW/2, WinH/2);
+    
 
 }
 
@@ -228,13 +232,14 @@ void processInput(GLFWwindow* window)
         isFreezeLock = false;
     }
 
-    if(isFreeze)
+    if(isFreeze&&isFreezeLock)
     {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
-    else
+    else if(!isFreeze&&isFreezeLock)
     {
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+        glfwSetCursorPos(window, WinW/2, WinH/2);
     }
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {

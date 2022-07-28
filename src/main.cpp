@@ -27,6 +27,8 @@ class Object;
 
 extern GLint WinW;
 extern GLint WinH;
+//extern GLint framebufferWidth;
+//extern GLint framebufferHeight;
 //Camera* cam;
 
 
@@ -37,10 +39,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
-    int framebufferWidth, framebufferHeight;
-    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
+    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);//TODO:
 
-    glViewport(0, 0, framebufferWidth, framebufferHeight);
+    //glViewport(0, 0, framebufferWidth, framebufferHeight);
     //glViewport(0, 0, width, height);
     WinW = width;
     WinH = height;
@@ -73,12 +74,8 @@ int main(int argc, char** argv)
         printf("GLEW CREATE ERROR");
         return -1;
     }
-    //GLFWwindow * window = Application::getInstance().currentWindow;
-    int frameBufferWidth, frameBufferHeight;
-    glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
-    cout<<"frame: "<<frameBufferHeight<<endl;
-    cout<<"hight: "<<WinH<<endl;
-    glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
+    glViewport(0, 0, framebufferWidth, framebufferHeight);
     //glViewport(0, 0, WinW, WinH);
     
     //glFrontFace(GL_CCW);
