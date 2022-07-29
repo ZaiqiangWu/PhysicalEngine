@@ -9,17 +9,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "Camera.h"
 #include "BillBoard.h"
-#include "Checkerboard.hpp"
-#include "SOIL.h"
-#include"Texture.h"
-#include "Mesh.h"
-#include "Model.h"
-#include "Text.h"
-#include "Cloth.h"
-#include "Sphere.h"
 #include "Scene.h"
-#include "RigidBody.h"
-#include "mass_spring.h"
+#include "Skybox.h"
 
 
 class Object;
@@ -27,6 +18,8 @@ class Object;
 
 extern GLint WinW;
 extern GLint WinH;
+//extern GLint framebufferWidth;
+//extern GLint framebufferHeight;
 //Camera* cam;
 
 
@@ -37,10 +30,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
-    int framebufferWidth, framebufferHeight;
-    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
+    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);//TODO:
 
-    glViewport(0, 0, framebufferWidth, framebufferHeight);
+    //glViewport(0, 0, framebufferWidth, framebufferHeight);
     //glViewport(0, 0, width, height);
     WinW = width;
     WinH = height;
@@ -73,12 +65,8 @@ int main(int argc, char** argv)
         printf("GLEW CREATE ERROR");
         return -1;
     }
-    //GLFWwindow * window = Application::getInstance().currentWindow;
-    int frameBufferWidth, frameBufferHeight;
-    glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
-    cout<<"frame: "<<frameBufferHeight<<endl;
-    cout<<"hight: "<<WinH<<endl;
-    glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+    glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
+    glViewport(0, 0, framebufferWidth, framebufferHeight);
     //glViewport(0, 0, WinW, WinH);
 
     //glFrontFace(GL_CCW);
@@ -91,36 +79,34 @@ int main(int argc, char** argv)
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);wireframe mode
     //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);go back
     // test glew
+    int height = 800;
+    int width =800;
+    int channel=3;
+    float image[height*width*channel];
 
+    for (int h=0;h<height;++h)
+    {
+        for(int w=0;w<width;++w)
+        {
+            image[h*width*channel+w*channel+0]=1.0;
+            image[h*width*channel+w*channel+1]=0.0;
+            image[h*width*channel+w*channel+2]=0.0;
+        }
+    }
 
-    //BillBoard* board = new BillBoard("../texture1.png");
+    BillBoard* board = new BillBoard(image,height,width,channel);
+    board->full_screen=true;
 
-
-    CheckerBoard* checkerboard = new CheckerBoard();
-    checkerboard->SetShader(PROJECT_DIR"/shader/checkerboard/shader.vs", PROJECT_DIR"/shader/checkerboard/shader.fs");
-
-    //Shader* model_shader = new Shader("../shader/model/shader.vs", "../shader/model/shader.fs");
-
-    // myModel->Scale(0.1);
-    //Model* myModel = new Model(PROJECT_DIR"/obj/bunny/bunny.obj");
-
-    Cloth* cloth=new Cloth();
-    Sphere sphere;
 
     cam = new Camera();
     cam->SetProjectionMatrix(WinW,WinH);
     Scene scene;
     scene.cam = cam;
     scene.light = new Light();
-    //scene.objects.push_back(myModel);
-    //scene.objects.push_back(board);
-    scene.objects.push_back(checkerboard);
-    scene.objects.push_back(cloth);
-    scene.objects.push_back(&sphere);
-    RigidBody* box=new RigidBody();
-    scene.rigidBodys.push_back(box);
-    scene.skybox = new Skybox();
-    scene.skybox->SetShader(PROJECT_DIR"/shader/skybox/shader.vs", PROJECT_DIR"/shader/skybox/shader.fs");
+
+    scene.objects.push_back(board);
+    //scene.skybox = new Skybox();
+    //scene.skybox->SetShader(PROJECT_DIR"/shader/skybox/shader.vs", PROJECT_DIR"/shader/skybox/shader.fs");
 
     while (!glfwWindowShouldClose(window))
     {

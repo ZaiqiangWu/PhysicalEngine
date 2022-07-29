@@ -7,6 +7,7 @@
 #include "Skybox.h"
 #include<queue>
 #include<string>
+#include "Text.h"
 #include "RigidBody.h"
 
 extern GLint framebufferWidth;
@@ -29,7 +30,8 @@ public:
 	    fps=0.0f;
 	    t_begin=high_resolution_clock::now();
         InitDepthBuffer();
-        depthShader=new Shader(PROJECT_DIR"/shader/shadowmap/shader.vs", PROJECT_DIR"/shader/shadowmap/shader.fs");
+        depthShader=new Shader(ROOT_DIR"shader/shadowmap/shader.vs", ROOT_DIR"shader/shadowmap/shader.fs");
+        skybox= nullptr;
     }
 	void Render()
 	{
@@ -43,7 +45,7 @@ public:
         glViewport(0, 0, framebufferWidth, framebufferHeight);
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		skybox->Render(cam);
+		if(skybox) skybox->Render(cam);
 		for (int i = 0; i < objects.size(); i++)
 		{
 			objects[i]->Render(cam,light,depthMap);
@@ -54,8 +56,7 @@ public:
 			rigidBodys[i]->Render(cam,light,depthMap);
 
 		}
-		//text.RenderText("This is sample text"+to_string(fps), 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f),cam);
-        text.RenderText("fps:"+to_string(fps).substr(0,4), 25.0f, (float)framebufferHeight - 25.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f),cam);
+        //text.RenderText("fps:"+to_string(fps).substr(0,4), 25.0f, (float)framebufferHeight - 25.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f),cam);
 	}
 	void GenDepthBuffer()
     {
