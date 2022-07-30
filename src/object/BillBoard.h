@@ -99,7 +99,7 @@ private:
         //Translate(glm::vec3(0,1,0));
         full_screen =false;
 
-        cout<<ROOT_DIR"shader/billboard/shader.vs"<<endl;
+        //cout<<ROOT_DIR"shader/billboard/shader.vs"<<endl;
         SetShader(ROOT_DIR"shader/billboard/shader.vs", ROOT_DIR"shader/billboard/shader.fs");
         shadowShader=new Shader(ROOT_DIR"shader/billboard/shadow.vs", ROOT_DIR"shader/billboard/shadow.fs");
         height = 2.0f;
