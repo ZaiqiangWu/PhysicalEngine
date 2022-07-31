@@ -165,6 +165,9 @@ private:
     {
 
     }
+    //boundary condition:
+    // Dirichlet boundary constant
+    // Neumann boundary related to boundary value, maybe equal
 
 };
 #endif //PHYSICALENGINE_FLUID2D_SIMULATOR_H
