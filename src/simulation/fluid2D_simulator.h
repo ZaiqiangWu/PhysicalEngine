@@ -4,13 +4,18 @@
 
 #ifndef PHYSICALENGINE_FLUID2D_SIMULATOR_H
 #define PHYSICALENGINE_FLUID2D_SIMULATOR_H
+#include "mathlib/vector3.h"
+#include "mathlib/vector2.h"
+
+using Vector3=vector3<float>;
+using Vector2=vector2<float>;
 
 class Fluid2D
 {
 public:
     int height;
     int width;
-    float* color;
+    Vector3* color;
     float* u_x;
     float* u_y;
     float delta_t;
@@ -19,7 +24,7 @@ public:
     {
         height=h;
         width=w;
-        color=new float[h*w*3];
+        color=new Vector3[h*w];
         u_x=new float[h*(w+1)];
         u_y=new float[(h+1)*w];
         delta_t=0.1f;
@@ -48,15 +53,15 @@ private:
             {
                 if (h+w>height)
                 {
-                    color[h*width*3+w*3+0]=1.0;
-                    color[h*width*3+w*3+1]=1.0;
-                    color[h*width*3+w*3+1]=1.0;
+                    color[h*width+w][0]=1.0;
+                    color[h*width+w][1]=1.0;
+                    color[h*width+w][2]=1.0;
                 }
                 else
                 {
-                    color[h*width*3+w*3+0]=0.0;
-                    color[h*width*3+w*3+1]=0.0;
-                    color[h*width*3+w*3+1]=0.0;
+                    color[h*width+w][0]=0.0;
+                    color[h*width+w][1]=0.0;
+                    color[h*width+w][2]=0.0;
                 }
             }
         }
@@ -114,17 +119,19 @@ private:
         {
             for(int w=0;w<width;++w)
             {
-                float x=((float)w+0.5)*grid_size;
-                float y=((float)h+0.5)*grid_size;
-                float v_x=(u_x[h*(width+1)+w]+u_x[h*(width+1)+w+1])*0.5f;
-                float v_y=u_y[h*width+w]+u_y[(h+1)*width+w];
-                float old_x,old_y;
-                back_trace(x,y,v_x,v_y,old_x,old_y);
+                Vector2 p=Vector2();
+                p[0]=((float)w+0.5)*grid_size;
+                p[1]=((float)h+0.5)*grid_size;
+                Vector2 v=Vector2();
+                v[0]=(u_x[h*(width+1)+w]+u_x[h*(width+1)+w+1])*0.5f;
+                v[1]=u_y[h*width+w]+u_y[(h+1)*width+w];
+                Vector2 old_p=back_trace(x,y,v_x,v_y);
+
             }
         }
 
     }
-    void back_trace(float x, float y, float v_x, float v_y, float &old_x, float &old_y)
+    Vector2 back_trace(Vector2 p, Vector2 v)
     {
         old_x = x-v_x*delta_t;
         old_y=y-v_y*delta_t;
@@ -136,11 +143,9 @@ private:
 
     void clipping(float x0, float y0, float x1, float y1, float &t)
     {
-        float eps = 0.000001f;
+        float eps = std::numeric_limits<float>::epsilon();
         float eps_x =eps:(-eps)?(x1-x0)>0;
         float eps_y =eps:(-eps)?(y1-y0)>0;
-        //float xt=x0+t*(x1-x0);
-        //float yt=y0+t*(y1-y0);
         float t_x1=-x0/(x1-x0+eps_x);
         float t_x2=((float)width-x0)/(x1-x0+eps_x);
         float t_y1=-y0/(y1-y0+eps_y);

@@ -11,6 +11,7 @@
 #include "BillBoard.h"
 #include "Scene.h"
 #include "Skybox.h"
+#include "simulation/fluid2D_simulator.h"
 
 
 class Object;
@@ -53,7 +54,7 @@ int main(int argc, char** argv)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);// for Mac OS
 #endif
 
-    GLFWwindow* window = glfwCreateWindow(WinW, WinH, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WinW, WinH, "FluidSim", NULL, NULL);
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, curse_poscallback);
@@ -88,9 +89,19 @@ int main(int argc, char** argv)
     {
         for(int w=0;w<width;++w)
         {
-            image[h*width*channel+w*channel+0]=1.0;
-            image[h*width*channel+w*channel+1]=0.0;
-            image[h*width*channel+w*channel+2]=0.0;
+            if(h>height/2)
+            {
+                image[h*width*channel+w*channel+0]=0.0;
+                image[h*width*channel+w*channel+1]=1.0;
+                image[h*width*channel+w*channel+2]=0.0;
+            }
+            else
+            {
+                image[h*width*channel+w*channel+0]=1.0;
+                image[h*width*channel+w*channel+1]=0.0;
+                image[h*width*channel+w*channel+2]=0.0;
+            }
+
         }
     }
 
