@@ -83,6 +83,7 @@ int main(int argc, char** argv)
     int height = 800;
     int width =800;
     int channel=3;
+    Fluid2D fluid(height,width);
     float image[height*width*channel];
 
     for (int h=0;h<height;++h)
@@ -105,7 +106,7 @@ int main(int argc, char** argv)
         }
     }
 
-    BillBoard* board = new BillBoard(image,height,width,channel);
+    BillBoard* board = new BillBoard(fluid.get_color_ptr(),height,width,channel);
     board->full_screen=true;
 
 

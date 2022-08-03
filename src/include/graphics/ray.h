@@ -11,10 +11,12 @@ template <class T>
 class Ray2D
 {
 public:
-    Ray2D()
+    vector2<T> o;
+    vector2<T> d;
+    Ray2D(vector2<T> o, vector2<T> d)
     {
-        vector2<T> o;
-        vector2<T> d;
+        this->o=o;
+        this->d=d;
     }
 };
 #endif //PHYSICALENGINE_RAY_H

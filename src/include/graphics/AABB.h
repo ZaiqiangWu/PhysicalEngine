@@ -31,18 +31,18 @@ public:
         T y0=ray.o[1];
         T y1=ray.d[1];
         T eps = std::numeric_limits<T>::epsilon();
-        T eps_x =eps:(-eps)?(x1-x0)>0;
-        T eps_y =eps:(-eps)?(y1-y0)>0;
+        T eps_x =(x1-x0)>0?eps:(-eps);
+        T eps_y =(y1-y0)>0?eps:(-eps);
         T t_x1=(x_min-x0)/(x1-x0+eps_x);
         T t_x2=(x_max-x0)/(x1-x0+eps_x);
         T t_y1=(y_min-y0)/(y1-y0+eps_y);
         T t_y2=(y_max-y0)/(y1-y0+eps_y);
-        T t_x_max=t_x1:t_x2?t_x1>t_x2;
-        T t_x_min=t_x2:t_x1?t_x1>t_x2;
-        T t_y_max=t_y1:t_y2?t_y1>t_y2;
-        T t_y_min=t_y2:t_y1?t_y1>t_y2;
-        t0=t_x_min:t_y_min?t_x_min>t_y_min;
-        t1=t_x_max:t_y_max?t_x_max<t_y_max;
+        T t_x_max=t_x1>t_x2?t_x1:t_x2;
+        T t_x_min=t_x1>t_x2?t_x2:t_x1;
+        T t_y_max=t_y1>t_y2?t_y1:t_y2;
+        T t_y_min=t_y1>t_y2?t_y2:t_y1;
+        t0=t_x_min>t_y_min?t_x_min:t_y_min;
+        t1=t_x_max<t_y_max?t_x_max:t_y_max;
         isHit=t0<t1;
         return isHit;
     }
